@@ -1,0 +1,142 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="PRDH.controller.keydata"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<App>
+		<pages>
+			<Page showHeader="true" title="Application" class="cl_pageBg sapUiSizeCompact" enableScrolling="false">
+				<customHeader>
+					<OverflowToolbar class="cl_headerToolbar" width="100%">
+						<Button class="cl_headerBackBtn cl_removeFocusBtn" icon="{= ${JM_ImageModel>/path} + 'NavBack.svg'}" press="fnCancel" tooltip="Back"></Button>
+						<!--changed by Yasin sherif on 28.10.2025-->
+						<Title id="kid_title" text="MDM : Product Hierarchy" class="cl_titleFont sapUiSizeCompact sapUiSmallMarginBegin"/>
+						<ToolbarSpacer/>
+						<Text text="{JM_UserModel>/Agent} - {JM_UserModel>/Uname}" class="cl_userIdFont sapUiTinyMarginEnd"/>
+						<Image src="{= ${JM_ImageModel>/path} + 'ExalcaLogotiny.svg'}" tooltip="Exalca" class="sapUiSmallMarginEnd" width="1rem"></Image>
+					</OverflowToolbar>
+				</customHeader>
+				<content >
+					<HBox visible="{JMVboxVisibilityModel>/RoadMapVisible}" class="cl_search_roadmap sapUiTinyMarginTop sapUiSmallMarginBeginEnd">
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<HBox alignItems="Center" justifyContent="Center">
+									<Image src="{= ${JM_ImageModel>/path} + 'SearchR.svg'}" tooltip="{i18n>search_l}" class="cl_kd_paddingTop sapUiTinyMarginEnd"></Image>
+									<Label text="{i18n>search_l}" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabel"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<HBox alignItems="Center" justifyContent="Center" class="cl_search_border">
+									<Image src="{= ${JM_ImageModel>/path} + 'Keydata.svg'}" tooltip="key data" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+									<Label text="Key Data" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabelHighlight "/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Initiator.svg'}" tooltip="{i18ninit}" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>phinit}" class="cl_search_roadMapLabel" visible="{RoadMapUI>/labelVisible}"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Reviewer.svg'}" tooltip="{reviewer_tt}" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>reviewer_l}" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabel"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Approver.svg'}" tooltip="{i18n>approver_l}" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>approver_l}" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabel"/>
+							</HBox>
+						</VBox>
+					</HBox>
+					<VBox >
+						<VBox id="id_SearchContainer" fitContainer="true" height="auto">
+							<l:Grid defaultSpan="L12 M6 S12">
+								<VBox class="sapUiSmallMarginTop ">
+									<layoutData>
+										<l:GridData span="L12 M7 S12"/>
+									</layoutData>
+									<HBox class="cl_pannelHead " justifyContent="SpaceBetween" alignItems="Center">
+										<Label text="{i18n>keyData_l}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+										<layoutData>
+											<l:GridData span="L12 M7 S12"/>
+										</layoutData>
+									</HBox>
+									<l:Grid class="cl_kd_grid">
+										<VBox class="sapUiSmallTinyTop">
+											<!--<HBox>-->
+												<Label text="Process" class="cl_processlabel"/>
+												<RadioButtonGroup id="id_kdradio" columns="3" class="cl_kd_radiobutton" select="fnRadioSelection">
+													<RadioButton text="Product Hierarchy"/>
+													<RadioButton id="KID_PM" text="Pack Mat Grp"/>
+													<RadioButton id="KID_MG" text="Material Group"/>
+												</RadioButtonGroup>
+											<!--</HBox>-->
+											<layoutData>
+												<l:GridData span="L12 M12 S12"/>
+											</layoutData>
+										</VBox>
+										<!--Added by Jones on 15.12.2025(start)-->
+										<VBox visible="{viewModel>/showMatDiv}">
+											<Label id="KID_MTART_TXT" text="{i18n>Mattyp}" class="cl_init_inputLabel" required="true"></Label>
+											<HBox>
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input id="KID_MTART" submit="fnPressEnter" liveChange = "fnLiveChange" change="fnLiveChange" valueHelpRequest="fnF4press" showValueHelp="true"
+														class="cl_s_inputField" maxLength="4"></Input>
+												</VBox>
+												<VBox width="67%">
+													<Input width="100%" class="cl_s_descField" editable="false" id="KID_MTART_DES"></Input>
+												</VBox>
+											</HBox>
+											<HBox >
+												<Text id="KID_MTART_ERR" visible="false" class="cl_errorTxt"></Text>
+											</HBox>
+											<layoutData>
+												<l:GridData span="L3 M12 S12"/>
+											</layoutData>
+										</VBox>
+										<VBox visible="{viewModel>/showMatDiv}">
+											<Label id="KID_SPART_TXT" text="Division" class="cl_init_inputLabel" required="true"></Label>
+											<HBox>
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input id="KID_SPART" submit="fnPressEnter" liveChange="fnLiveChange" valueHelpRequest="fnF4press" showValueHelp="true"
+														class="cl_s_inputField" maxLength="4"></Input>
+												</VBox>
+												<VBox width="67%">
+													<Input width="100%" class="cl_s_descField" editable="false" id="KID_SPART_DES"></Input>
+												</VBox>
+											</HBox>
+											<HBox >
+												<Text id="KID_SPART_ERR" visible="false" class="cl_errorTxt"></Text>
+											</HBox>
+											<layoutData>
+												<l:GridData span="L3 M12 S12" visibleL="{viewModel>/showMatDiv}" visibleM="{viewModel>/showMatDiv}" visibleS="{viewModel>/showMatDiv}"/>
+											</layoutData>
+										</VBox>
+									</l:Grid>
+								</VBox>
+							</l:Grid>
+						</VBox>
+						<HBox class="cl_imageContainerPrdHier sapUiSmallMarginTop" id="KID_KEYDATA_IMAGE_CONT" alignContent="Center" visible="true">
+							<Image id="KID_KEYDATA_IMAGE" src="{= ${JM_ImageModel>/path} + 'Keydata_EmptySpace.svg'}" tooltip="key data" class="cl_fitImage"/>
+						</HBox>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="{i18n>cancel}" width="6rem" icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" class="cl_secondaryButton sapUiTinyMarginEnd"
+							tooltip="{i18n>cancel}" press="fnCancel"/>
+						<Button text="{i18n>continue}" width="6rem" icon="{= ${JM_ImageModel>/path} + 'Submit.svg'}" class="cl_primaryButton sapUiSmallMarginEnd"
+							tooltip="{i18n>continue}" press="fnSubmit"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

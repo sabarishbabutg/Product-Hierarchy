@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>PRDH</title>
+
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"PRDH": ""}'>
+		</script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/searchStyle.css"> 
+		<link rel="stylesheet" type="text/css" href="css/keydata.css"> 
+		<link rel="stylesheet" type="text/css" href="css/dialog.css"> 
+		<link rel="stylesheet" type="text/css" href="css/Initiator.css"> 
+		
+		<script>
+			sap.ui.getCore().attachInit(function () {
+    		sap.ui.core.Component.create({
+        		name: "PRDH",
+        		async: true
+    		}).then(function (oComponent) {
+        		new sap.m.Shell({
+            		app: new sap.ui.core.ComponentContainer({
+                	height: "100%",
+                	component: oComponent
+            	})
+        		}).placeAt("content");
+    		});
+		});
+		</script>
+		
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

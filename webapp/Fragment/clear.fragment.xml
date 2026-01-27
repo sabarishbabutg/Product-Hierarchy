@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog  title="Confirmation" type="Message" class="cl_confirmationDialog sapUiSizeCompact  ">
+		<customHeader>
+			<Toolbar class="cl_DupDialogToolbar">
+				<ToolbarSpacer/>
+				<Text text="Confirmation" class="cl_DupDialogTitle sapUiTinyMarginTopBottom"/>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</customHeader>
+		<HBox width="100%" justifyContent="Center">
+			<Text id="id_Confirm" text="Are you sure you want to clear the selections?" class="sapUiSmallMargin cl_confirmationTxt"/>
+		</HBox>
+		<buttons>
+			<Button text="No" icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" press="fnCancelClear" class="cl_DupDialog_change"/>
+			<Button text="Yes" icon="{= ${JM_ImageModel>/path} + 'Apply.svg'}" press="fnClearAll" class=" cl_DupDialog_Download"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

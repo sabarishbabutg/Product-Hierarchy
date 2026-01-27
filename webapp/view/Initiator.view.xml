@@ -1,0 +1,610 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="PRDH.controller.Initiator"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<App>
+		<pages>
+			<Page showHeader="true" title="Application" class="cl_pageBg sapUiSizeCompact" enableScrolling="false">
+				<customHeader>
+					<OverflowToolbar class="cl_headerToolbar" width="100%">
+						<Button class="cl_headerBackBtn cl_removeFocusBtn" icon="{= ${JM_ImageModel>/path} + 'NavBack.svg'}" press="onNavBack" tooltip="Back"></Button>
+						<Label id="id_title" text="MDM : Product Hierarchy &amp; Pack Mat Grp" class="cl_titleFont sapUiSizeCompact sapUiSmallMarginBegin"/>
+						<ToolbarSpacer/>
+						<Text text="{JM_UserModel>/Agent} - {JM_UserModel>/Uname}" class="cl_userIdFont sapUiTinyMarginEnd"/>
+						<Image src="{= ${JM_ImageModel>/path} + 'ExalcaLogotiny.svg'}" tooltip="Exalca" class="sapUiSmallMarginEnd" width="1rem"></Image>
+					</OverflowToolbar>
+				</customHeader>
+				<content>
+					<HBox id="id_roadmap" visible="{JMVboxVisibilityModel>/RoadMapVisible}" class="sapUiSmallMarginBeginEnd cl_init_roadmap sapUiTinyMarginTop">
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<HBox alignItems="Center" justifyContent="Center">
+									<Image src="{= ${JM_ImageModel>/path} + 'SearchR.svg'}" tooltip="{i18n>search_l}" class="cl_kd_paddingTop sapUiTinyMarginEnd"></Image>
+									<Label text="{i18n>search_l}" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabel"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Keydata.svg'}" tooltip="key data" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="Key Data" visible="{RoadMapUI>/labelVisible}" class="cl_search_roadMapLabel"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline"></HBox>
+						<VBox id="id_initiator" width="20%"></VBox>
+						<HBox class="cl_search_RoadMapVline"></HBox>
+						<VBox id="id_reviewer" width="20%"></VBox>
+						<HBox class="cl_search_RoadMapVline"></HBox>
+						<VBox id="id_approver" width="20%"></VBox>
+					</HBox>
+					<VBox>
+						<l:Grid defaultSpan="L12 M6 S12">
+							<VBox class=" sapUiSmallMarginTop ">
+								<layoutData>
+									<l:GridData span="L12 M12 S12"/>
+								</layoutData>
+								<HBox class="cl_pannelHead " justifyContent="SpaceBetween" alignItems="Center">
+									<Label text="{i18n>keyData_l}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+									<layoutData>
+										<l:GridData span="L12 M7 S12"/>
+									</layoutData>
+								</HBox>
+								<l:Grid class="cl_kd_grid">
+									<VBox >
+										<!--<HBox>-->
+										<Label text="Process:" class="cl_processlabel sapUiTinyMarginBegin"/>
+										<RadioButtonGroup id="id_kdradio" columns="3" class="cl_kd_radiobutton sapUiSmallMarginLeft">
+											<RadioButton text="Product Hierarchy" enabled="false"/>
+											<!--"Add by kalai Arasu on 16.01.2026 id-->
+											<RadioButton  id="KID_PM" text="Pack Mat Grp" enabled="false"/>
+											<!--"Add by kalai Arasu on 16.01.2026 id-->
+											<RadioButton  id="KID_MG" text="Material Group" enabled="false"/>
+										</RadioButtonGroup>
+										<!--</HBox>-->
+										<layoutData>
+											<l:GridData span="{JM_KeyDataVisible>/dynamicSpanRb}"/>
+										</layoutData>
+									</VBox>
+									<VBox class="sapUiTinyMarginBottom" visible="{JM_KeyDataVisible>/phVisible}">
+										<Label text="Product Hierarchy" class="cl_init_inputLabel"></Label>
+										<HBox>
+											<VBox width="90%" class="sapUiTinyMarginEnd">
+												<Input editable="false" value="{JM_KeyDataVisible>/phValue}" class="cl_s_descField"></Input>
+											</VBox>
+											<VBox width="10%" class="sapUiMarginEnd">
+												<Input editable="false" value="{JM_KeyDataVisible>/phValueLength}" class="cl_s_descField"></Input>
+											</VBox>
+										</HBox>
+										<layoutData>
+											<l:GridData span="L3 M12 S12" visibleXL="{JM_KeyDataVisible>/phVisible}" visibleL="{JM_KeyDataVisible>/phVisible}"
+												visibleM="{JM_KeyDataVisible>/phVisible}" visibleS="{JM_KeyDataVisible>/phVisible}"/>
+										</layoutData>
+									</VBox>
+									<VBox class="sapUiTinyMarginBegin">
+										<Label id="KID_MTART_TXT" text="{i18n>Mattyp}" class="cl_init_inputLabel" required="true"></Label>
+										<HBox>
+											<VBox width="33%" class="sapUiTinyMarginEnd">
+												<Input id="KID_MTART" showValueHelp="true" class="cl_s_inputField" editable="false" maxLength="4"></Input>
+											</VBox>
+											<VBox width="67%">
+												<Input width="100%" class="cl_s_descField" id="KID_MTART_DES" editable="false"></Input>
+											</VBox>
+										</HBox>
+										<HBox >
+											<Text id="KID_MTART_ERR" visible="false" class="cl_errorTxt"></Text>
+										</HBox>
+										<layoutData>
+											<l:GridData span="L3 M12 S12" visibleXL="{viewModel>/showMatDiv}" visibleL="{viewModel>/showMatDiv}" visibleM="{viewModel>/showMatDiv}"
+												visibleS="{viewModel>/showMatDiv}"/>
+										</layoutData>
+									</VBox>
+									<VBox>
+										<Label id="KID_SPART_TXT" text="Division" class="cl_init_inputLabel" required="true"></Label>
+										<HBox>
+											<VBox width="33%" class="sapUiTinyMarginEnd">
+												<Input id="KID_SPART" submit="fnPressEnter" editable="false" class="cl_s_inputField" maxLength="4"></Input>
+											</VBox>
+											<VBox width="67%">
+												<Input width="100%" class="cl_s_descField" editable="false" id="KID_SPART_DES"></Input>
+											</VBox>
+										</HBox>
+										<HBox >
+											<Text id="KID_SPART_ERR" visible="false" class="cl_errorTxt"></Text>
+										</HBox>
+										<layoutData>
+											<l:GridData span="L3 M12 S12" visibleXL="{viewModel>/showMatDiv}" visibleL="{viewModel>/showMatDiv}" visibleM="{viewModel>/showMatDiv}"
+												visibleS="{viewModel>/showMatDiv}"/>
+										</layoutData>
+									</VBox>
+									<VBox id = "id_dynamicTrvbox">
+										<layoutData>
+											<l:GridData span="L3 M12 S12"/>
+										</layoutData>
+									</VBox>
+									<!---->
+									<VBox visible="{JM_KeyDataVisible>/trVisible}">
+										<Label text="Transport Request" class="cl_init_inputLabel"></Label>
+										<HBox >
+											<VBox width="75%">
+												<!---->
+												<Input editable="false" value="{JM_KeyDataVisible>/TrValue}" class="cl_s_descField"></Input>
+											</VBox>
+											<HBox class="cl_indicator sapUiSmallMarginBegin">
+												<Button icon="{JM_KeyDataVisible>/StatusImage}" tooltip="{JM_KeyDataVisible>/StatusTooltip}" text="{JM_KeyDataVisible>/StatusText}"
+													id="id_tr_ind" class="cl_Tr_Indicator"></Button>
+											</HBox>
+										</HBox>
+										<layoutData>
+											<l:GridData span="L3 M7 S12"/>
+										</layoutData>
+									</VBox>
+								</l:Grid>
+							</VBox>
+						</l:Grid>
+						<l:Grid id="id_container" class="cl_init_inputcont1 cl_init_Maincont ">
+							<!--first container-->
+							<VBox id="id_SearchContainer" class="cl_init_container" height="auto">
+								<!--added-->
+								<layoutData>
+									<l:GridData span="L8 M6 S12"/>
+								</layoutData>
+								<l:Grid class=" cl_init_inputcont cl_init_level_container " id="id_prodhier_cont" visible="true">
+									<VBox tooltip="{i18n>PH_LEVEL_TOOLTIP}">
+										<layoutData>
+											<l:GridData span="L12 M12 S12"/>
+										</layoutData>
+										<HBox class="cl_init_pannelHead" justifyContent="SpaceBetween" alignItems="Center">
+											<Label text="{i18n>prodHier}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+											<Select id="idSelect" class="sapUiTinyMarginEnd cl_init_select" change="onSelectChange">
+												<core:Item key="PRD" text="PRD"/>
+												<core:Item key="QAS" text="QAS"/>
+												<core:Item key="DEV" text="DEV"/>
+											</Select>
+											<layoutData>
+												<l:GridData span="L9 M7 S12"/>
+											</layoutData>
+										</HBox>
+										<l:Grid class="cl_init_level_cont ">
+											<!--filter column-->
+											<VBox class="sapUiTinyMarginTop sapUiTinyMarginBegin">
+												<layoutData>
+													<l:GridData span="L10 M7 S12"/>
+												</layoutData>
+												<HBox >
+													<VBox width="50%" class="sapUiTinyMarginEnd">
+														<Label text="{i18n>code}" class="cl_init_inputLabel"/>
+														<Input id="SID_STUFE" class="cl_s_inputField" showValueHelp="true" valueHelpRequest="fncodef4press" liveChange="fncodeCheckliveChange"
+															maxLength="18"/>
+													</VBox>
+													<VBox width="50%">
+														<Label text="{i18n>description}" class="cl_init_inputLabel"/>
+														<Input id="SID_STUFE_des" class="cl_s_descField" editable="false"/>
+													</VBox>
+													<VBox class="sapUiTinyMarginBeginEnd">
+														<Label text="{i18n>level}" class="cl_init_inputLabel"/>
+														<Input class="cl_s_inputField" id="SID_STUFE_lev" width="100%" editable="false" maxLength="40" liveChange="fnLiveChange"/>
+													</VBox>
+													<VBox alignItems="Center" class="sapUiTinyMarginEnd">
+														<layoutData>
+															<l:GridData span="L3 M7 S12"/>
+														</layoutData>
+														<Label class="cl_init_inputLabel"/>
+														<!--<Input class="cl_s_inputField" width="100%" editable="false" maxLength="40" liveChange="fnLiveChange"/>-->
+														<HBox>
+															<Button text="{i18n>chk}" icon="{= ${JM_ImageModel>/path} + 'Continue.svg'}" class="cl_primaryButton sapUiSmallMarginEnd"
+																tooltip="{i18n>chk}" press="fncodecheck"/>
+															<HBox id="SID_STUFE_IND" class="cl_indicator sapUiTinyMarginBottom" visible="false">
+																<Button id="SID_STUFE_BTN" class="cl_Indicator"></Button>
+															</HBox>
+														</HBox>
+													</VBox>
+												</HBox>
+											</VBox>
+										</l:Grid>
+									</VBox>
+									<!--level container-->
+									<VBox class="cl_init_levelcont sapUiSmallMarginBegin">
+										<layoutData>
+											<l:GridData span="L12 M12 S12"/>
+										</layoutData>
+										<!--level 1-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l1}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox id="SID_STUFE_1_IND" class="cl_indicator sapUiTinyMarginBottom" visible="false">
+														<Button id="SID_STUFE_1_BTN"  class="cl_Indicator"></Button>
+													</HBox>
+													<!--</VBox>-->
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod1init}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField cl_errorTextBox" editable="{JM_Dashboard>/editable}" showValueHelp="true" valueHelpRequest="fnSamplepress"
+																id="SID_STUFE_1" liveChange="fnLiveChange" maxLength="2"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L1}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField " editable="{JM_Dashboard>/editable}" id="SID_STUFE_1_des" maxLength="40" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_1_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 2-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l2}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_2_IND" visible="false">
+														<Button id="SID_STUFE_2_BTN" icon="Image/IndicatorP.svg" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod2}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField" editable="false" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_2"
+																liveChange="fnLiveChange" maxLength="2"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L2}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" editable="false" id="SID_STUFE_2_des" maxLength="40" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_2_hier" editable="false" class="cl_s_inputField" width="100%" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 3-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l3}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_3_IND" visible="false">
+														<Button id="SID_STUFE_3_BTN" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod3}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField" editable="false" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_3"
+																liveChange="fnLiveChange" maxLength="2"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L3}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" editable="false" id="SID_STUFE_3_des" maxLength="40" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_3_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 4-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l4}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_4_IND" visible="false">
+														<Button id="SID_STUFE_4_BTN" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod4}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField" editable="false" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_4"
+																liveChange="fnLiveChange" maxLength="3"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L4}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" editable="false" id="SID_STUFE_4_des" maxLength="40" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_4_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 5-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l5}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_5_IND" visible="false">
+														<Button id="SID_STUFE_5_BTN" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod5}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField" editable="false" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_5"
+																liveChange="fnLiveChange" maxLength="3"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L5}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" maxLength="40" editable="false" id="SID_STUFE_5_des" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_5_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 6-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l6}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_6_IND" visible="false">
+														<Button id="SID_STUFE_6_BTN" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod6}" class="cl_init_inputLabel" required="true"/>
+															<Input editable="false" class="cl_inputField" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_6"
+																liveChange="fnLiveChange" maxLength="4"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L6}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" maxLength="40" editable="false" id="SID_STUFE_6_des" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_6_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+										<!--level 7-->
+										<VBox class="sapUiTinyMarginEnd" tooltip="{i18n>l7}">
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+											<l:Grid class="cl_init_level_item sapUiTinyMarginTopBottom ">
+												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
+													<HBox class="cl_indicator" id="SID_STUFE_7_IND" visible="false">
+														<Button id="SID_STUFE_7_BTN" class="cl_IndicatorP"></Button>
+													</HBox>
+													<layoutData>
+														<l:GridData span="L2 M12 S12"/>
+													</layoutData>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L5 M7 S12"/>
+													</layoutData>
+													<HBox >
+														<VBox width="33%" class="sapUiTinyMarginEnd">
+															<Label text="{i18n>LevCod7}" class="cl_init_inputLabel" required="true"/>
+															<Input class="cl_inputField" editable="false" showValueHelp="true" valueHelpRequest="fnSamplepress" id="SID_STUFE_7"
+																liveChange="fnLiveChange" maxLength="2"/>
+														</VBox>
+														<VBox width="67%">
+															<Label text="{JM_LevelDesc>/L7}" class="cl_init_inputLabel"/>
+															<Input class="cl_inputField" editable="false" id="SID_STUFE_7_des" maxLength="40" liveChange="fnLiveChange"/>
+														</VBox>
+													</HBox>
+												</VBox>
+												<VBox class="sapUiSmallMarginTop">
+													<layoutData>
+														<l:GridData span="L4 M7 S12"/>
+													</layoutData>
+													<Label text="{i18n>hierarchy}" class="cl_init_inputLabel"/>
+													<Input id="SID_STUFE_7_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>
+												</VBox>
+											</l:Grid>
+										</VBox>
+									</VBox>
+									<!--	<VBox id="id_prodhier_emptyspace" class="sapUiSmallMarginTop cl_init_scrollStyle" justifyContent="Center" alignItems="Center">-->
+									<!--	<Image id="KID_KEYDATA_IMAGE" src="{= ${JM_ImageModel>/path} + 'initiator_empty.svg'}" class="cl_Init_fitImage sapUiLargeMarginBegin"/>-->
+									<!--	<layoutData>-->
+									<!--		<l:GridData span="L6 M12 S12"/>-->
+									<!--	</layoutData>-->
+									<!--</VBox>-->
+								</l:Grid>
+							</VBox>
+							<VBox class="cl_init_container" id="id_initContainer_sec">
+								<layoutData>
+									<l:GridData id="id_matgrp_contGrid" span="L4 M12 S12"/>
+									<!-- Package Material Group-->
+								</layoutData>
+								<VBox class="cl_matgrp_cont" id="id_matgrpsec">
+									<VBox id="id_matgrp_cont">
+										<layoutData>
+											<l:GridData span="L6 M7 S12"/>
+										</layoutData>
+										<HBox class="cl_pannelHead " justifyContent="SpaceBetween" alignItems="Center">
+											<Label text="{i18n>packgmatgrpshort}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+										</HBox>
+										<l:Grid class="cl_kd_grid">
+											<VBox id="id_matgrp_input" class="sapUiTinyMarginTop">
+												<Label text="{i18n>packgmatgrpshort}" class="cl_init_inputLabel sapUiTinyMarginBegin"/>
+												<HBox class="sapUiTinyMarginBegin">
+													<VBox width="33%" class="sapUiTinyMarginEnd">
+														<Input id="SID_MAGRV" class="cl_inputField" showValueHelp="true" valueHelpRequest="fnSamplepress" liveChange="fnLiveChange" maxLength="4"/>
+													</VBox>
+													<VBox width="67%">
+														<Input class="cl_inputField" id="SID_MAGRV_des" liveChange="fnLiveChange" editable="false"/>
+													</VBox>
+													<HBox class="sapUiTinyMarginBegin cl_indicator" id="SID_MAGRV_IND" visible="false">
+														<Button id="SID_MAGRV_BTN" icon="sap-icon://circle-task-2" class="cl_IndicatorS"></Button>
+													</HBox>
+												</HBox>
+												<layoutData>
+													<l:GridData id="id_matgrp_InpGrid" span="L11 M12 S12"/>
+												</layoutData>
+											</VBox>
+										</l:Grid>
+									</VBox>
+									<VBox id="id_image_container" class="sapUiSmallMarginTop cl_init_scrollStyle" justifyContent="Center" alignItems="Center">
+										<Image id="KID_KEYDATA_IMAGE" src="{= ${JM_ImageModel>/path} + 'initiator_empty.svg'}" class="cl_Init_fitImage sapUiLargeMarginBegin"/>
+										<layoutData>
+											<l:GridData span="L6 M12 S12"/>
+										</layoutData>
+									</VBox>
+								</VBox>
+							</VBox>
+							<!--Material Group Start-->
+							<VBox class="cl_init_container" id="id_initContainer_matgrp">
+								<layoutData>
+									<l:GridData id="id_mg_contGrid" span="L4 M12 S12"/>
+									<!--  Material Group-->
+								</layoutData>
+								<VBox class="cl_matgrp_cont" id="id_mgsec">
+									<VBox id="id_mg_cont">
+										<layoutData>
+											<l:GridData span="L6 M7 S12"/>
+										</layoutData>
+										<HBox class="cl_pannelHead " justifyContent="SpaceBetween" alignItems="Center">
+											<Label text="Material Group" class="sapUiSmallMargin cl_pannelTitleFont"/>
+											<layoutData>
+												<l:GridData span="L12 M7 S12"/>
+											</layoutData>
+										</HBox>
+										<!--Added by jones on 15.12.2025-->
+										<l:Grid class="cl_kd_grid">
+											<VBox id="id_mg_input" class="sapUiTinyMarginTop">
+												<Label text="Material Group" class="cl_init_inputLabel sapUiTinyMarginBegin"/>
+												<HBox class="sapUiTinyMarginBegin">
+													<VBox width="33%" class="sapUiTinyMarginEnd">
+														<Input id="ID_PH_MATKL" class="cl_inputField" showValueHelp="true" valueHelpRequest="fnSamplepress" liveChange="fnLiveChange" maxLength="9"/>
+													</VBox>
+													<VBox width="67%">
+														<Input class="cl_inputField" id="ID_PH_MATKL_des" liveChange="fnLiveChange" editable="true"/>
+													</VBox>
+													<HBox class="sapUiTinyMarginBegin cl_indicator" id="ID_PH_MATKL_IND" visible="false">
+														<Button id="ID_PH_MATKL_BTN" icon="sap-icon://circle-task-2" class="cl_IndicatorS"></Button>
+													</HBox>
+												</HBox>
+												<layoutData>
+													<l:GridData id="id_mg_InpGrid" span="L12 M12 S12"/>
+												</layoutData>
+											</VBox>
+										</l:Grid>
+									</VBox>
+								</VBox>
+							</VBox>
+							<!--Material Group End-->
+							<VBox>
+								<layoutData>
+									<l:GridData span="L12 M6 S12"/>
+									<!-- Package Material Group-->
+								</layoutData>
+								<core:Fragment fragmentName="PRDH.Fragment.prdh_attachment_comments" type="XML"/>
+							</VBox>
+						</l:Grid>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="{i18n>Reject}" visible="{JM_FooterBtnModel>/Reject}" tooltip="{i18n>Reject}" class="cl_secondaryButton sapUiTinyMarginEnd"
+							icon="{= ${JM_ImageModel>/path} + 'SaveAsDraftW.svg'}" press="fnReject"/>
+						<Button text="{i18n>sndback}" visible="{JM_FooterBtnModel>/sendBack}" icon="{= ${JM_ImageModel>/path} + 'SendbackW.svg'}"
+							class="cl_primaryButton sapUiTinyMarginEnd" tooltip="{i18n>sndback}" press="fnSendBackDialog"/>
+						<Button text="{i18n>saveasdraft}" icon="{= ${JM_ImageModel>/path} + 'SaveAsDraftW.svg'}" class="cl_secondaryButton sapUiTinyMarginEnd"
+							tooltip="{i18n>saveasdraft}" id="id_saveDraft" press="fnDraftPress" visible="{JM_FooterBtnModel>/Draft}"/>
+						<Button text="{i18n>Submit}" icon="{= ${JM_ImageModel>/path} + 'Submit.svg'}" visible="{JM_FooterBtnModel>/submit}"
+							class="cl_primaryButton sapUiSmallMarginEnd" tooltip="{i18n>Submit}" press="fnSubmit" id="id_submit"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

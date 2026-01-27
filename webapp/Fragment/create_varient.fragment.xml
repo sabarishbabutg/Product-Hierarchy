@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
+	<Dialog id="idManageViewsDialog" title="Manage Views" class="cl_DupDialog sapUiSizeCompact" stretch="false" horizontalScrolling="false"
+		verticalScrolling="false" contentWidth="10rem" contentHeight="auto" draggable="false" resizable="false">
+		<customHeader>
+			<Toolbar class="cl_DupDialogToolbar" height="2.5rem">
+				<ToolbarSpacer/>
+				<Text text="Create Variant" class="cl_DupDialogTitle sapUiTinyMarginTopBottom"/>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</customHeader>
+		<!-- Search Box -->
+		<HBox class="sapUiSmallMargin" width="100%" alignItems="Center">
+			<SearchField id="id_SearchVar" width="94%" class="cl_s_searchfield" liveChange="fnsearchVarTable"/>
+			<HBox width="30%" justifyContent="End" alignItems="Center" class="sapUiSmallMarginEnd">
+				<Button icon="{= ${JM_ImageModel>/path} + 'Plus.svg'}" class="cl_init_tableAdd" press="fnAddVariant" tooltip="{i18n>addvarSS}"/>
+				<Button icon="{= ${JM_ImageModel>/path} + 'Delete.svg'}" class="sapUiTinyMarginBegin cl_init_tableDelete sapUiSmallMarginEnd" press="fnDeleteVariant" tooltip="{i18n>delvarSS}"/>
+			</HBox>
+		</HBox>
+		<t:Table id="idVariantTable" rows="{JMComboModel>/variants}" selectionMode="Single" selectionBehavior="RowSelector" visibleRowCount="4"
+			enableSelectAll="true" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom cl_st_table cl_s_ui_table cl_s_tableselhdrWF">
+			<t:columns>
+				<!-- View Name Column -->
+				<t:Column>
+					<t:label>
+						<Label text="View Name"/>
+					</t:label>
+					<t:template>
+						<VBox>
+							<Input value="{JMComboModel>VariantName}" type="Text" editable="{JMComboModel>isNew}" class="cl_kd_tableInput" liveChange="fnLivechangeVariant"/>
+						</VBox>
+					</t:template>
+				</t:Column>
+				<!-- Created By Column -->
+				<t:Column>
+					<t:label>
+						<Label text="Created By"/>
+					</t:label>
+					<t:template>
+						<VBox>
+							<Text text="{JM_UserModel>/Uname}"/>
+						</VBox>
+					</t:template>
+				</t:Column>
+			</t:columns>
+		</t:Table>
+		<!-- Footer -->
+		<buttons>
+			<Button text="Cancel" icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" class="cl_DupDialog_change sapUiSmallMarginEnd" press="fnCancelVariant"/>
+			<Button text="Save" icon="{= ${JM_ImageModel>/path} + 'Save.svg'}" class="cl_primaryButton  sapUiSmallMarginEnd" press="fnSaveVariant"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

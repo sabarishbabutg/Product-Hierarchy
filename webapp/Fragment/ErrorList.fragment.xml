@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="idErrorDialog" title="Error Dialog" class="cl_validationdialog sapUiResponsivePadding">
+		<customHeader>
+			<Toolbar class="cl_error_toolbar">
+				<Image tooltip="{i18n>error_l}" src="{= ${JM_ImageModel>/path} + 'ErrorImage.svg'}" width="23px"/>
+				<Text text="{i18n>error_l}" class="cl_errorToolbar"/>
+			</Toolbar>
+		</customHeader>
+		<VBox>
+			<List id="idErrorList" mode="None" itemPress="fnErrorSelect" growing="false" class="cl_validationerroList" items="{JM_ErrorList>/rows}">
+				<StandardListItem title="{JM_ErrorList>text}" type="Active">
+					<customData>
+						<core:CustomData key="fieldId" value="{JM_ErrorList>fieldId}"/>
+					</customData>
+				</StandardListItem>
+			</List>
+		</VBox>
+		<beginButton>
+			<Button text="Cancel" class="sapUiSizeCompact cl_secondaryButton sapUiSmallMarginEnd" press="fnErrorDialogClose" icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,152 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:grid="sap.ui.layout" xmlns:uitable="sap.ui.table"
+	xmlns:fi="sap.ui.unified">
+	<grid:Grid hSpacing="0" defaultSpan="L12 M12 S12">
+		<VBox height="auto" class="sapUiTinyMarginBottom sapUiTinyMarginEnd">
+			<HBox class="cl_pannelHead" justifyContent="SpaceBetween" alignItems="Center">
+				<Label text="{i18n>Attachments}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+				<layoutData>
+					<grid:GridData span="L7 M7 S12"/>
+				</layoutData>
+			</HBox>
+			<grid:Grid class="cl_kd_grid">
+				<HBox height="1.5rem">
+					<Label text="{i18n>UploadFiles}" class="cl_tableHeaderTxt sapUiSmallMarginBegin sapUiTinyMarginTop"></Label>
+					<Label text="{i18n>UploadFielSubtext}" class="sapUiTinyMarginBegin sapUiTinyMarginTop cl_attachement_secondaryTxt"></Label>
+					<layoutData>
+						<grid:GridData span="L12 M12 S12"/>
+					</layoutData>
+				</HBox>
+				<VBox>
+					<uitable:Table id="idDynamicUITable" rows="{JM_DocTypeModel>/List}" visibleRowCount="4" selectionMode="None"
+						class="cl_opr_Tbl sapUiTinyMarginTop">
+						<uitable:noData>
+							<VBox alignItems="Center" justifyContent="Center" class="cl_noDataInit">
+								<Image src="{= ${JM_ImageModel>/path} + 'Nodatafound.gif'}" tooltip="{i18n>NoDatafound}" width="180px" height="180px"/>
+							</VBox>
+						</uitable:noData>
+						<uitable:columns>
+							<uitable:Column width="7rem">
+								<Label text="{i18n>AttachmentNumber}"/>
+								<uitable:template>
+									<Label text="{JM_DocTypeModel>AttachmentNo}" class="sapUiSmallMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="13rem">
+								<Label text="{i18n>Attachments}"/>
+								<uitable:template>
+									<!--press="onDownloadAttachment"-->
+									<Link text="{JM_DocTypeModel>TagName}" class="cl_AttachmentTag sapUiTinyMarginBegin" press="fnDownloadSingleFile"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem">
+								<Label text="{i18n>agent}"/>
+								<uitable:template>
+									<!--press="onDownloadAttachment"-->
+									<Label text="{JM_DocTypeModel>Username}" tooltip="{JM_DocTypeModel>CreatedBy}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column >
+								<Label text="{i18n>Date}"/>
+								<uitable:template>
+									<Text text="{ path: 'JM_DocTypeModel>CreatedOn', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}"
+										class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem">
+								<Label text="{i18n>DocumentType}"/>
+								<uitable:template>
+									<Label text="{JM_DocTypeModel>DocType}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem">
+								<Label text="{i18n>FileSize}"/>
+								<uitable:template>
+									<Label text="{JM_DocTypeModel>Size}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column >
+								<Label text="{i18n>Delete}"/>
+								<uitable:template>
+									<Button icon="{= ${JM_ImageModel>/path} + 'DeleteIconforall.svg'}" press="fnDeleteAttachRow" class="cl_rembtnfocus" tooltip="{i18n>Delete}"
+										type="Transparent"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:columns>
+					</uitable:Table>
+					<layoutData>
+						<grid:GridData span="L9 M12 S12"/>
+					</layoutData>
+				</VBox>
+				<VBox>
+					<VBox>
+						<Label text="{i18n>DocumentType}" class="cl_inputLabel"></Label>
+						<VBox width="100%">
+							<ComboBox id="id_varients" width="100%" class="cl_combobox"></ComboBox>
+						</VBox>
+						<layoutData>
+							<grid:GridData span="L3 M12 S12"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>UploadFile}" class="cl_inputLabel "></Label>
+						<VBox width="100%">
+							<!--accept=".doc,.docx,.xls,.xlsx,.wdsl,.msg,.eml,.zip,.htm,.pdf"-->
+							<Input id="fileNameInput" value="{/uploadedFileName}" class="cl_fileUploader" valueHelpRequest="fnUploadButtonpres" showValueHelp="true"></Input>
+							<fi:FileUploader id="hiddenUploader" change="fnFileSelected" uploadOnChange="false" fileType="doc,docx,xls,xlsx,wdsl,msg,eml,zip,htm,pdf"
+								class="cl_fileupload"/>
+						</VBox>
+						<layoutData>
+							<grid:GridData span="L3 M12 S12"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>TagName}" class="cl_inputLabel"></Label>
+						<VBox width="100%">
+							<Input id="id_tagInput" class="cl_inputField"></Input>
+						</VBox>
+						<layoutData>
+							<grid:GridData span="L3 M12 S12"/>
+						</layoutData>
+					</VBox>
+					<HBox justifyContent="SpaceBetween">
+						<Button text="{i18n>MassDownload}" id="id_massDownloadButton" icon="{= ${JM_ImageModel>/path} + 'Download.svg'}"
+							enabled="{= ${JM_DocTypeModel>/List}.length > 1 }" class="cl_primaryButton" press="fnMassDownload" width="9rem"></Button>
+						<Button text="{i18n>AttachFile}" icon="{= ${JM_ImageModel>/path} + 'Attachfile.svg'}" class="cl_primaryButton cl_attachIconWidth"
+							press="fnAttachPress" width="7rem"></Button>
+						<layoutData>
+							<grid:GridData span="L3 M12 S12"/>
+						</layoutData>
+					</HBox>
+					<layoutData>
+						<grid:GridData span="L3 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</grid:Grid>
+			<layoutData>
+				<grid:GridData span="L12 M12 S12"/>
+			</layoutData>
+		</VBox>
+	</grid:Grid>
+	<grid:Grid hSpacing="0" defaultSpan="L12 M12 S12">
+		<VBox height="auto" class="sapUiTinyMarginBottom sapUiTinyMarginEnd">
+			<HBox class="cl_pannelHead" justifyContent="SpaceBetween" alignItems="Center">
+				<Label text="{i18n>Comments}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+				<layoutData>
+					<grid:GridData span="L7 M7 S12"/>
+				</layoutData>
+			</HBox>
+			<grid:Grid class="cl_kd_grid">
+				<VBox width="97%" class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+					<TextArea id="id_textarea" rows="3" width="100%" placeholder="{i18n>YourCommentsherePh}" class="cl_init_textdatacomments"></TextArea>
+					<VBox id="id_commentbox"></VBox>
+					<layoutData>
+						<grid:GridData span="L12 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</grid:Grid>
+			<layoutData>
+				<grid:GridData span="L12 M12 S12"/>
+			</layoutData>
+		</VBox>
+	</grid:Grid>
+</core:FragmentDefinition>

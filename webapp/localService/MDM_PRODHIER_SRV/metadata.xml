@@ -1,0 +1,235 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="EXL.MDM_PRODHIER_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="Product_Search_Input" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Prodh"/>
+                </Key>
+                <Property Name="Prodh" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Prod. Hierarchy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Stufe" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Level number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level1" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProductHier 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level2" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProdHierarchy 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext2" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level3" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProdHierarchy 3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext3" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level4" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Pack Type / Region" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext4" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level5" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Pack Size / Product" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext5" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level6" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Process Type / Pack" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext6" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level7" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Sub-Brand / Layer an" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext7" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="And" Type="Edm.Boolean" sap:unicode="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Or" Type="Edm.Boolean" sap:unicode="false" sap:label="Boolean Variable (X = True, - = False, Space = Unknown)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Magrv" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Matl Grp Pckmat" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bezei" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavPHSearch" Relationship="EXL.MDM_PRODHIER_SRV.Assoc_PHSearch" FromRole="FromRole_Assoc_PHSearch" ToRole="ToRole_Assoc_PHSearch"/>
+            </EntityType>
+            <EntityType Name="Product_Search_Output" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Prodh"/>
+                </Key>
+                <Property Name="Prodh" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Prod. Hierarchy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Stufe" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Level number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Magrv" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Matl Grp Pckmat" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bezei" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Char" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Product_KeyData" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="App ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mtart" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Material Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mtbez" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Mat.Type Desc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WiId" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Work Item ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Msgtype" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Message Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ind" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Phind" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mgind" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavPHAttachments" Relationship="EXL.MDM_PRODHIER_SRV.Assoc_PHAttachments" FromRole="FromRole_Assoc_PHAttachments" ToRole="ToRole_Assoc_PHAttachments"/>
+                <NavigationProperty Name="NavPHItems" Relationship="EXL.MDM_PRODHIER_SRV.Assoc_PHItems" FromRole="FromRole_Assoc_PHItems" ToRole="ToRole_Assoc_PHItems"/>
+                <NavigationProperty Name="NavPHAgent" Relationship="EXL.MDM_PRODHIER_SRV.Assoc_PHAgent" FromRole="FromRole_Assoc_PHAgent" ToRole="ToRole_Assoc_PHAgent"/>
+                <NavigationProperty Name="NavPHComments" Relationship="EXL.MDM_PRODHIER_SRV.Assoc_PHComments" FromRole="FromRole_Assoc_PHComments" ToRole="ToRole_Assoc_PHComments"/>
+            </EntityType>
+            <EntityType Name="Product_Items" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Level1" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProductHier 1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level2" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProdHierarchy 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext2" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level3" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ProdHierarchy 3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext3" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level4" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Pack Type / Region" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext4" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level5" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Pack Size / Product" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext5" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level6" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Process Type / Pack" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext6" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Level7" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Sub-Brand / Layer an" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext7" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Magrv" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Matl Grp Pckmat" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bezei" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="PH_Attachments" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ObjectId"/>
+                </Key>
+                <Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Object Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SerialNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Serial No" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created on" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DocType" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Document Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserType" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Attachment User" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="File Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FileSize" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="File Size" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MimeType" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Mime Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Xstring" Type="Edm.Binary" Nullable="false" sap:unicode="false" sap:label="Document Xstring" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Doknr" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Dept" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Char" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AttachIndicator" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Display" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="PH_Comments" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ObjectId" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Object Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CrtdDate" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Character Field with Length 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CrtdTime" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Character Field with Length 10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="80" sap:unicode="false" sap:label="Complete name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Comments" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="COMMENTS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="PH_Agent" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Agents"/>
+                </Key>
+                <Property Name="Agents" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="PH_AdvanceSearch" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Prodh"/>
+                </Key>
+                <Property Name="Prodh" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Prod. Hierarchy" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vtext" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Stufe" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Level number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="Assoc_PHSearch" sap:content-version="1">
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_Search_Input" Multiplicity="0..1" Role="FromRole_Assoc_PHSearch"/>
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_Search_Output" Multiplicity="*" Role="ToRole_Assoc_PHSearch"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Assoc_PHSearch">
+                        <PropertyRef Name="Prodh"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Assoc_PHSearch">
+                        <PropertyRef Name="Prodh"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Assoc_PHItems" sap:content-version="1">
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_KeyData" Multiplicity="0..1" Role="FromRole_Assoc_PHItems"/>
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_Items" Multiplicity="*" Role="ToRole_Assoc_PHItems"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Assoc_PHItems">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Assoc_PHItems">
+                        <PropertyRef Name="Transid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Assoc_PHAttachments" sap:content-version="1">
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_KeyData" Multiplicity="0..1" Role="FromRole_Assoc_PHAttachments"/>
+                <End Type="EXL.MDM_PRODHIER_SRV.PH_Attachments" Multiplicity="*" Role="ToRole_Assoc_PHAttachments"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Assoc_PHAttachments">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Assoc_PHAttachments">
+                        <PropertyRef Name="ObjectId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Assoc_PHComments" sap:content-version="1">
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_KeyData" Multiplicity="0..1" Role="FromRole_Assoc_PHComments"/>
+                <End Type="EXL.MDM_PRODHIER_SRV.PH_Comments" Multiplicity="*" Role="ToRole_Assoc_PHComments"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Assoc_PHComments">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Assoc_PHComments">
+                        <PropertyRef Name="Transid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Assoc_PHAgent" sap:content-version="1">
+                <End Type="EXL.MDM_PRODHIER_SRV.Product_KeyData" Multiplicity="0..1" Role="FromRole_Assoc_PHAgent"/>
+                <End Type="EXL.MDM_PRODHIER_SRV.PH_Agent" Multiplicity="*" Role="ToRole_Assoc_PHAgent"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Assoc_PHAgent">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Assoc_PHAgent">
+                        <PropertyRef Name="Agents"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="EXL_MDM_PRODHIER_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="Product_Search_InputSet" EntityType="EXL.MDM_PRODHIER_SRV.Product_Search_Input" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Product_Search_OutputSet" EntityType="EXL.MDM_PRODHIER_SRV.Product_Search_Output" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Product_KeyDataSet" EntityType="EXL.MDM_PRODHIER_SRV.Product_KeyData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Product_ItemsSet" EntityType="EXL.MDM_PRODHIER_SRV.Product_Items" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PH_AttachmentsSet" EntityType="EXL.MDM_PRODHIER_SRV.PH_Attachments" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PH_CommentsSet" EntityType="EXL.MDM_PRODHIER_SRV.PH_Comments" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PH_AgentSet" EntityType="EXL.MDM_PRODHIER_SRV.PH_Agent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="PH_AdvanceSearchSet" EntityType="EXL.MDM_PRODHIER_SRV.PH_AdvanceSearch" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="Assoc_PHAgentSet" Association="EXL.MDM_PRODHIER_SRV.Assoc_PHAgent" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Product_KeyDataSet" Role="FromRole_Assoc_PHAgent"/>
+                    <End EntitySet="PH_AgentSet" Role="ToRole_Assoc_PHAgent"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_PHSearchSet" Association="EXL.MDM_PRODHIER_SRV.Assoc_PHSearch" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Product_Search_InputSet" Role="FromRole_Assoc_PHSearch"/>
+                    <End EntitySet="Product_Search_OutputSet" Role="ToRole_Assoc_PHSearch"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_PHAttachmentsSet" Association="EXL.MDM_PRODHIER_SRV.Assoc_PHAttachments" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Product_KeyDataSet" Role="FromRole_Assoc_PHAttachments"/>
+                    <End EntitySet="PH_AttachmentsSet" Role="ToRole_Assoc_PHAttachments"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_PHCommentsSet" Association="EXL.MDM_PRODHIER_SRV.Assoc_PHComments" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Product_KeyDataSet" Role="FromRole_Assoc_PHComments"/>
+                    <End EntitySet="PH_CommentsSet" Role="ToRole_Assoc_PHComments"/>
+                </AssociationSet>
+                <AssociationSet Name="Assoc_PHItemsSet" Association="EXL.MDM_PRODHIER_SRV.Assoc_PHItems" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Product_KeyDataSet" Role="FromRole_Assoc_PHItems"/>
+                    <End EntitySet="Product_ItemsSet" Role="ToRole_Assoc_PHItems"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="http://myapps.awl.in:441/sap/opu/odata/exl/MDM_PRODHIER_SRV/$metadata"/>
+                    <atom:link
+                        xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="http://myapps.awl.in:441/sap/opu/odata/exl/MDM_PRODHIER_SRV/$metadata"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>

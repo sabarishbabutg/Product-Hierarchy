@@ -1,0 +1,766 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="EXL.MDM_CONFIG_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="wf_mass_agent_change" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="NewAgent"/>
+                </Key>
+                <Property Name="Master" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="MASTER" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OldAgent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NewAgent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OldName" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NewName" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="FLAG" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Navwf_mass_agent_change" Relationship="EXL.MDM_CONFIG_SRV.Asswf_mass_agent_change" FromRole="FromRole_Asswf_mass_agent_change" ToRole="ToRole_Asswf_mass_agent_change"/>
+            </EntityType>
+            <EntityType Name="Wf_parm_ui" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lablel" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflowparm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MaxLength" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="No. of Characters" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Field Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Dashboard_lvl" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Roll" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Roll" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InitiatedDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="End date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InitiatedTime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="End time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OveralAllTime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Overal time" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TRANS_WFV_CURD" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Variant" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Variant Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Agent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Active" Type="Edm.Boolean" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ReadOnly" Type="Edm.Boolean" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MessageType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MessageLine" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Message Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Nav_Trans_Wfv" Relationship="EXL.MDM_CONFIG_SRV.Ass_trans_wfv" FromRole="FromRole_Ass_trans_wfv" ToRole="ToRole_Ass_trans_wfv"/>
+            </EntityType>
+            <EntityType Name="WFRole" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="Active" Type="Edm.Boolean" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Variant" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Varient Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Role" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Start Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="End Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Agent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MailId" Type="Edm.String" Nullable="false" MaxLength="250" sap:unicode="false" sap:label="Mail Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFParm" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="Active" Type="Edm.Boolean" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MsgType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Message Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Key Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1Name" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1Id" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2Name" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2Id" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3Name" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3Id" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4Name" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4Id" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFMain" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Navleveldef" Relationship="EXL.MDM_CONFIG_SRV.Navleveldef" FromRole="FromRole_Navleveldef" ToRole="ToRole_Navleveldef"/>
+                <NavigationProperty Name="Navagentassign" Relationship="EXL.MDM_CONFIG_SRV.Navagentassign" FromRole="FromRole_Navagentassign" ToRole="ToRole_Navagentassign"/>
+                <NavigationProperty Name="Nav_wf_sla" Relationship="EXL.MDM_CONFIG_SRV.Asswfsla" FromRole="FromRole_Asswfsla" ToRole="ToRole_Asswfsla"/>
+                <NavigationProperty Name="Navmailfinal" Relationship="EXL.MDM_CONFIG_SRV.Navmailfinal" FromRole="FromRole_Navmailfinal" ToRole="ToRole_Navmailfinal"/>
+            </EntityType>
+            <EntityType Name="UWL" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Appid"/>
+                </Key>
+                <Property Name="StartDate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="Created date of workitem" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Appid" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="App ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SendBackInd" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="send back indicator" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TypeLvl" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Type Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="End date of workitem" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Userid" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Branching name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WiId" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Work Item ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WiText" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WiCd" Type="Edm.String" Nullable="false" MaxLength="120" sap:unicode="false" sap:label="Work item text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WiCruser" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="created date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Task" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="task" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WF_Variable" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cnt" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Unique Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFDef" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="Dept" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="WF DEPT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EscWfDays" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Workflow Days" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EscWfHour" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Field of type TIMS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RemWfDays" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Workflow Days" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RemWfHour" Type="Edm.Time" Nullable="false" Precision="0" sap:unicode="false" sap:label="Field of type TIMS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TypeLvl" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Type Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MaxRole" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Maximum no of Role" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MinAppr" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Min Application" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Workflow Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Username" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Uname"/>
+                    <PropertyRef Name="Sysid"/>
+                </Key>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sysid" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="System ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFView" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Variant" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Variant Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SyUser" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ViewName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Active" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Response" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="RESPONSE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ReadOnly" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFView_Final" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Variant" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Variant Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SyUser" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Response" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="RESPONSE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WFVariant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Variant" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Variant Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Navvariant" Relationship="EXL.MDM_CONFIG_SRV.Navvariant" FromRole="FromRole_Navvariant" ToRole="ToRole_Navvariant"/>
+            </EntityType>
+            <EntityType Name="WFMail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Navmail" Relationship="EXL.MDM_CONFIG_SRV.Navmail" FromRole="FromRole_Navmail" ToRole="ToRole_Navmail"/>
+                <NavigationProperty Name="Navwf_sla" Relationship="EXL.MDM_CONFIG_SRV.Asswf_sla" FromRole="FromRole_Asswf_sla" ToRole="ToRole_Asswf_sla"/>
+            </EntityType>
+            <EntityType Name="WFMailf" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MailId" Type="Edm.String" Nullable="false" MaxLength="250" sap:unicode="false" sap:label="Mail Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedBy" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Wrokflow_Lock" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.Boolean" Nullable="false" sap:unicode="false" sap:label="Active" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Syuser" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Response" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Response Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Dashboard" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DraftCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Draft count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Top" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Top values for Pagination" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="TotalCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Total count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CompleteCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Completed count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Skip" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="skip value for pagination" sap:creatable="false" sap:updatable="false" sap:filterable="false"/>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SendBackCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Send back count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RejectCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="Reject count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="START_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="END_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="InprogressCount" Type="Edm.Int32" Nullable="false" sap:unicode="false" sap:label="inprogress count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ObjValue" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Object Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavDashTab" Relationship="EXL.MDM_CONFIG_SRV.Ass_dash" FromRole="FromRole_Ass_dash" ToRole="ToRole_Ass_dash"/>
+                <NavigationProperty Name="NavDashLvl" Relationship="EXL.MDM_CONFIG_SRV.Ass_dash_lvl" FromRole="FromRole_Ass_dash_lvl" ToRole="ToRole_Ass_dash_lvl"/>
+            </EntityType>
+            <EntityType Name="Dashboard_tab" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Application from domain" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sapcode" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="SAPCODE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="DESCRIPTION" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="StartDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="START_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="EndDate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="END_DATE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="UserId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="NextApp" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="User ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OveralTime" Type="Edm.String" Nullable="false" sap:unicode="false" sap:label="OVERAL_TIME" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="WF_SLA" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Workflow Process" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ExsitingApprover" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Exsiting Approver" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MailId" Type="Edm.String" Nullable="false" MaxLength="250" sap:unicode="false" sap:label="Mail Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MailType" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Mail Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfDays" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Workflow Days" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfHours" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Field of type TIMS" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Changed On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ChangedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Changed By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="SearchHelp" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="FieldId"/>
+                </Key>
+                <Property Name="FieldId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="App ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Process" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="F4Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="F4 Types" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam5" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam6" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam7" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam8" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam9" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldNam10" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value5" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value6" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value7" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value8" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value9" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value10" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MsgType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Message Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavSerchResult" Relationship="EXL.MDM_CONFIG_SRV.Asso_SearchHelp" FromRole="FromRole_Asso_SearchHelp" ToRole="ToRole_Asso_SearchHelp"/>
+            </EntityType>
+            <EntityType Name="SearchHelpResult" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="F4Type"/>
+                </Key>
+                <Property Name="F4Type" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="F4 Types" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Process" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Domname" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Domain" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Valpos" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Value key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ddlanguage" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Lang." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DomvalueL" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Lower Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DomvalueH" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Dom.upper limit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ddtext" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DomvalLd" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Lower limit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DomvalHd" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Upper Limit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value2" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value3" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value4" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Data element" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DpField" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Field name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Label1" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Rule Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Label2" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Rule Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Label3" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Rule Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Label4" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Rule Text" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Rules" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Fnm"/>
+                    <PropertyRef Name="Fgroup"/>
+                    <PropertyRef Name="App"/>
+                    <PropertyRef Name="Vwnm"/>
+                    <PropertyRef Name="VwnmId"/>
+                </Key>
+                <Property Name="AppDesc" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Application Desc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fnm" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RulesCheck" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Rules Check" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FnmId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fgroup" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Function Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SearchHelp" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Origin" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="App" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Application" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TableUi" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="If Table" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Process" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Process" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vwnm" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VwnmId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FmmDes" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Ruleh" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="RuleSetId"/>
+                </Key>
+                <Property Name="RuleSetId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Rule Set Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fgroup" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Function Group" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Application" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vwnm" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VwnmId" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="View Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fnm" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FmmDes" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FnmId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MsgType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Message Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="RuleI" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Fnm"/>
+                    <PropertyRef Name="RuleId"/>
+                    <PropertyRef Name="RuleSetId"/>
+                    <PropertyRef Name="Value"/>
+                </Key>
+                <Property Name="ChangeInd" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Change Indicator" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Fnm" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RuleId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Rule Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FnmId" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Field ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RuleText" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="RULE TEXT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RuleSetId" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Rule Set Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TableRow" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Table Row" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ftype" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Function Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FmmDes" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Short Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="DeepRule" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Flag"/>
+                </Key>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="FLAG" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MsgType" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Message Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="273" sap:unicode="false" sap:label="Return Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavRuleI" Relationship="EXL.MDM_CONFIG_SRV.AssoRuleI" FromRole="FromRole_AssoRuleI" ToRole="ToRole_AssoRuleI"/>
+                <NavigationProperty Name="NavRuleh" Relationship="EXL.MDM_CONFIG_SRV.AssoRuleh" FromRole="FromRole_AssoRuleh" ToRole="ToRole_AssoRuleh"/>
+            </EntityType>
+            <EntityType Name="AppDomain" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Domname"/>
+                </Key>
+                <Property Name="Domname" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="DOMNAME" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="VALUE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="TEXT" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Search_Variant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="MdmMaster"/>
+                </Key>
+                <Property Name="MdmMaster" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label=" MDM_MASTE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VariantName" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="MDM_Variant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FieldId" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="MDM_Field Id" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Filter" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="MDM_Filter" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Created By" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Value" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="MDM_Serch" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Created On" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavSearch_Variant" Relationship="EXL.MDM_CONFIG_SRV.AssSearch_Variant" FromRole="FromRole_AssSearch_Variant" ToRole="ToRole_AssSearch_Variant"/>
+            </EntityType>
+            <EntityType Name="WFCopy" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="ToappId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="AppId" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Application ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4From" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1From" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm4To" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm1To" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2From" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm2To" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3From" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WfParm3To" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="workflow parm" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Flag" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Single-Character Flag" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Level_Details" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Transid"/>
+                </Key>
+                <Property Name="Transid" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Trans ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Lvl" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="  Level" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Agent" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Agent" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="70" sap:unicode="false" sap:label="Agent Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Submit" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="who submit the request" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="MinApprover" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Min Application" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="Asso_SearchHelp" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.SearchHelp" Multiplicity="0..1" Role="FromRole_Asso_SearchHelp"/>
+                <End Type="EXL.MDM_CONFIG_SRV.SearchHelpResult" Multiplicity="*" Role="ToRole_Asso_SearchHelp"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asso_SearchHelp">
+                        <PropertyRef Name="FieldId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asso_SearchHelp">
+                        <PropertyRef Name="FieldId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Navvariant" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFVariant" Multiplicity="1" Role="FromRole_Navvariant"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WFView" Multiplicity="*" Role="ToRole_Navvariant"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Navvariant">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Navvariant">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Navmail" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMail" Multiplicity="1" Role="FromRole_Navmail"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WFMailf" Multiplicity="*" Role="ToRole_Navmail"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Navmail">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Navmail">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Asswf_sla" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMail" Multiplicity="0..1" Role="FromRole_Asswf_sla"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WF_SLA" Multiplicity="*" Role="ToRole_Asswf_sla"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asswf_sla">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asswf_sla">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="AssSearch_Variant" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.Search_Variant" Multiplicity="0..1" Role="FromRole_AssSearch_Variant"/>
+                <End Type="EXL.MDM_CONFIG_SRV.Search_Variant" Multiplicity="*" Role="ToRole_AssSearch_Variant"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_AssSearch_Variant">
+                        <PropertyRef Name="MdmMaster"/>
+                    </Principal>
+                    <Dependent Role="ToRole_AssSearch_Variant">
+                        <PropertyRef Name="MdmMaster"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Asswf_mass_agent_change" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.wf_mass_agent_change" Multiplicity="0..1" Role="FromRole_Asswf_mass_agent_change"/>
+                <End Type="EXL.MDM_CONFIG_SRV.wf_mass_agent_change" Multiplicity="*" Role="ToRole_Asswf_mass_agent_change"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asswf_mass_agent_change">
+                        <PropertyRef Name="NewAgent"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asswf_mass_agent_change">
+                        <PropertyRef Name="NewAgent"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="AssoRuleI" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.DeepRule" Multiplicity="1" Role="FromRole_AssoRuleI"/>
+                <End Type="EXL.MDM_CONFIG_SRV.RuleI" Multiplicity="*" Role="ToRole_AssoRuleI"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_AssoRuleI">
+                        <PropertyRef Name="Message"/>
+                    </Principal>
+                    <Dependent Role="ToRole_AssoRuleI">
+                        <PropertyRef Name="RuleId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="AssoRuleh" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.DeepRule" Multiplicity="1" Role="FromRole_AssoRuleh"/>
+                <End Type="EXL.MDM_CONFIG_SRV.Ruleh" Multiplicity="*" Role="ToRole_AssoRuleh"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_AssoRuleh">
+                        <PropertyRef Name="Message"/>
+                    </Principal>
+                    <Dependent Role="ToRole_AssoRuleh">
+                        <PropertyRef Name="RuleSetId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Navleveldef" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMain" Multiplicity="0..1" Role="FromRole_Navleveldef"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WFDef" Multiplicity="*" Role="ToRole_Navleveldef"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Navleveldef">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Navleveldef">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Navagentassign" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMain" Multiplicity="0..1" Role="FromRole_Navagentassign"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WFRole" Multiplicity="*" Role="ToRole_Navagentassign"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Navagentassign">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Navagentassign">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Asswfsla" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMain" Multiplicity="0..1" Role="FromRole_Asswfsla"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WF_SLA" Multiplicity="*" Role="ToRole_Asswfsla"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Asswfsla">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Asswfsla">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Navmailfinal" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.WFMain" Multiplicity="1" Role="FromRole_Navmailfinal"/>
+                <End Type="EXL.MDM_CONFIG_SRV.WFMailf" Multiplicity="*" Role="ToRole_Navmailfinal"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Navmailfinal">
+                        <PropertyRef Name="AppId"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Navmailfinal">
+                        <PropertyRef Name="AppId"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Ass_trans_wfv" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.TRANS_WFV_CURD" Multiplicity="0..1" Role="FromRole_Ass_trans_wfv"/>
+                <End Type="EXL.MDM_CONFIG_SRV.TRANS_WFV_CURD" Multiplicity="*" Role="ToRole_Ass_trans_wfv"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Ass_trans_wfv">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Ass_trans_wfv">
+                        <PropertyRef Name="Transid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Ass_dash" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.Dashboard" Multiplicity="0..1" Role="FromRole_Ass_dash"/>
+                <End Type="EXL.MDM_CONFIG_SRV.Dashboard_tab" Multiplicity="*" Role="ToRole_Ass_dash"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Ass_dash">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Ass_dash">
+                        <PropertyRef Name="Transid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Ass_dash_lvl" sap:content-version="1">
+                <End Type="EXL.MDM_CONFIG_SRV.Dashboard" Multiplicity="0..1" Role="FromRole_Ass_dash_lvl"/>
+                <End Type="EXL.MDM_CONFIG_SRV.Dashboard_lvl" Multiplicity="*" Role="ToRole_Ass_dash_lvl"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Ass_dash_lvl">
+                        <PropertyRef Name="Transid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Ass_dash_lvl">
+                        <PropertyRef Name="Transid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="EXL_MDM_CONFIG_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="wf_mass_agent_changeSet" EntityType="EXL.MDM_CONFIG_SRV.wf_mass_agent_change" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Wf_parm_uiSet" EntityType="EXL.MDM_CONFIG_SRV.Wf_parm_ui" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Dashboard_lvlSet" EntityType="EXL.MDM_CONFIG_SRV.Dashboard_lvl" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TRANS_WFV_CURDSet" EntityType="EXL.MDM_CONFIG_SRV.TRANS_WFV_CURD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFRoleSet" EntityType="EXL.MDM_CONFIG_SRV.WFRole" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFParmSet" EntityType="EXL.MDM_CONFIG_SRV.WFParm" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFMainSet" EntityType="EXL.MDM_CONFIG_SRV.WFMain" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="UWLSet" EntityType="EXL.MDM_CONFIG_SRV.UWL" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WF_VariableSet" EntityType="EXL.MDM_CONFIG_SRV.WF_Variable" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFDefSet" EntityType="EXL.MDM_CONFIG_SRV.WFDef" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="UsernameSet" EntityType="EXL.MDM_CONFIG_SRV.Username" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFViewSet" EntityType="EXL.MDM_CONFIG_SRV.WFView" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFView_FinalSet" EntityType="EXL.MDM_CONFIG_SRV.WFView_Final" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFVariantSet" EntityType="EXL.MDM_CONFIG_SRV.WFVariant" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFMailSet" EntityType="EXL.MDM_CONFIG_SRV.WFMail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFMailfSet" EntityType="EXL.MDM_CONFIG_SRV.WFMailf" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Wrokflow_LockSet" EntityType="EXL.MDM_CONFIG_SRV.Wrokflow_Lock" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DashboardSet" EntityType="EXL.MDM_CONFIG_SRV.Dashboard" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Dashboard_tabSet" EntityType="EXL.MDM_CONFIG_SRV.Dashboard_tab" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WF_SLASet" EntityType="EXL.MDM_CONFIG_SRV.WF_SLA" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SearchHelpSet" EntityType="EXL.MDM_CONFIG_SRV.SearchHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="SearchHelpResultSet" EntityType="EXL.MDM_CONFIG_SRV.SearchHelpResult" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="RulesSet" EntityType="EXL.MDM_CONFIG_SRV.Rules" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="RulehSet" EntityType="EXL.MDM_CONFIG_SRV.Ruleh" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="RuleISet" EntityType="EXL.MDM_CONFIG_SRV.RuleI" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DeepRuleSet" EntityType="EXL.MDM_CONFIG_SRV.DeepRule" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="AppDomainSet" EntityType="EXL.MDM_CONFIG_SRV.AppDomain" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Search_VariantSet" EntityType="EXL.MDM_CONFIG_SRV.Search_Variant" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="WFCopySet" EntityType="EXL.MDM_CONFIG_SRV.WFCopy" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="Level_DetailsSet" EntityType="EXL.MDM_CONFIG_SRV.Level_Details" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="Asswf_mass_agent_changeSet" Association="EXL.MDM_CONFIG_SRV.Asswf_mass_agent_change" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="wf_mass_agent_changeSet" Role="FromRole_Asswf_mass_agent_change"/>
+                    <End EntitySet="wf_mass_agent_changeSet" Role="ToRole_Asswf_mass_agent_change"/>
+                </AssociationSet>
+                <AssociationSet Name="NavleveldefSet" Association="EXL.MDM_CONFIG_SRV.Navleveldef" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMainSet" Role="FromRole_Navleveldef"/>
+                    <End EntitySet="WFDefSet" Role="ToRole_Navleveldef"/>
+                </AssociationSet>
+                <AssociationSet Name="Ass_trans_wfvSet" Association="EXL.MDM_CONFIG_SRV.Ass_trans_wfv" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="TRANS_WFV_CURDSet" Role="FromRole_Ass_trans_wfv"/>
+                    <End EntitySet="TRANS_WFV_CURDSet" Role="ToRole_Ass_trans_wfv"/>
+                </AssociationSet>
+                <AssociationSet Name="NavmailSet" Association="EXL.MDM_CONFIG_SRV.Navmail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMailSet" Role="FromRole_Navmail"/>
+                    <End EntitySet="WFMailfSet" Role="ToRole_Navmail"/>
+                </AssociationSet>
+                <AssociationSet Name="Asswf_slaSet" Association="EXL.MDM_CONFIG_SRV.Asswf_sla" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMailSet" Role="FromRole_Asswf_sla"/>
+                    <End EntitySet="WF_SLASet" Role="ToRole_Asswf_sla"/>
+                </AssociationSet>
+                <AssociationSet Name="NavmailfinalSet" Association="EXL.MDM_CONFIG_SRV.Navmailfinal" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMainSet" Role="FromRole_Navmailfinal"/>
+                    <End EntitySet="WFMailfSet" Role="ToRole_Navmailfinal"/>
+                </AssociationSet>
+                <AssociationSet Name="Asso_SearchHelpSet" Association="EXL.MDM_CONFIG_SRV.Asso_SearchHelp" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SearchHelpSet" Role="FromRole_Asso_SearchHelp"/>
+                    <End EntitySet="SearchHelpResultSet" Role="ToRole_Asso_SearchHelp"/>
+                </AssociationSet>
+                <AssociationSet Name="NavagentassignSet" Association="EXL.MDM_CONFIG_SRV.Navagentassign" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMainSet" Role="FromRole_Navagentassign"/>
+                    <End EntitySet="WFRoleSet" Role="ToRole_Navagentassign"/>
+                </AssociationSet>
+                <AssociationSet Name="AssoRuleh_AssocSet" Association="EXL.MDM_CONFIG_SRV.AssoRuleh" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DeepRuleSet" Role="FromRole_AssoRuleh"/>
+                    <End EntitySet="RulehSet" Role="ToRole_AssoRuleh"/>
+                </AssociationSet>
+                <AssociationSet Name="AsswfslaSet" Association="EXL.MDM_CONFIG_SRV.Asswfsla" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFMainSet" Role="FromRole_Asswfsla"/>
+                    <End EntitySet="WF_SLASet" Role="ToRole_Asswfsla"/>
+                </AssociationSet>
+                <AssociationSet Name="Ass_dash_lvlSet" Association="EXL.MDM_CONFIG_SRV.Ass_dash_lvl" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DashboardSet" Role="FromRole_Ass_dash_lvl"/>
+                    <End EntitySet="Dashboard_lvlSet" Role="ToRole_Ass_dash_lvl"/>
+                </AssociationSet>
+                <AssociationSet Name="NavvariantSet" Association="EXL.MDM_CONFIG_SRV.Navvariant" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WFVariantSet" Role="FromRole_Navvariant"/>
+                    <End EntitySet="WFViewSet" Role="ToRole_Navvariant"/>
+                </AssociationSet>
+                <AssociationSet Name="AssSearch_VariantSet" Association="EXL.MDM_CONFIG_SRV.AssSearch_Variant" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Search_VariantSet" Role="FromRole_AssSearch_Variant"/>
+                    <End EntitySet="Search_VariantSet" Role="ToRole_AssSearch_Variant"/>
+                </AssociationSet>
+                <AssociationSet Name="AssoRuleISet" Association="EXL.MDM_CONFIG_SRV.AssoRuleI" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DeepRuleSet" Role="FromRole_AssoRuleI"/>
+                    <End EntitySet="RuleISet" Role="ToRole_AssoRuleI"/>
+                </AssociationSet>
+                <AssociationSet Name="Ass_dashSet" Association="EXL.MDM_CONFIG_SRV.Ass_dash" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="DashboardSet" Role="FromRole_Ass_dash"/>
+                    <End EntitySet="Dashboard_tabSet" Role="ToRole_Ass_dash"/>
+                </AssociationSet>
+            </EntityContainer>
+            <Annotation
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./exl/MDM_CONFIG_SRV/$metadata"/>
+                    <atom:link
+                        xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./exl/MDM_CONFIG_SRV/$metadata"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>

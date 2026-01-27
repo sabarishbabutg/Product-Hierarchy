@@ -1,0 +1,163 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:grid="sap.ui.layout" xmlns:uitable="sap.ui.table">
+	<Dialog title="{i18n>Duplicateprdh}" showHeader="false" class="cl_Dup_Sendback_Dialog sapUiSizeCompact" afterClose="fnDupMsgFragClose">
+		<customHeader>
+			<Toolbar class="cl_DialogToolbar" height="2.5rem">
+				<ToolbarSpacer/>
+				<Text text="{JM_VisibleModel>/text}" class="cl_DialogToolbarTitle sapUiTinyMarginTopBottom"/>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</customHeader>
+		<VBox class="sapUiSmallMarginTop">
+			<grid:Grid>
+				<!--<grid:Grid defaultSpan="L12 M6 S12">-->
+				<VBox class="sapUiSmallMarginTop ">
+					<layoutData>
+						<grid:GridData span="L12 M7 S12"/>
+					</layoutData>
+					<HBox class="cl_pannelHead " justifyContent="SpaceBetween" alignItems="Center">
+						<Label text="{i18n>keyData_l}" class="sapUiSmallMargin cl_pannelTitleFont"/>
+						<layoutData>
+							<grid:GridData span="L12 M7 S12"/>
+						</layoutData>
+					</HBox>
+					<grid:Grid class="cl_kd_grid">
+						<VBox class="sapUiSmallTinyTop ">
+							<HBox>
+								<VBox width="33%" class="sapUiTinyMarginEnd">
+									<Label text="{i18n>Mattypshort}" class="cl_init_inputLabel"></Label>
+									<Input id="KID_MTART1" submit="fnPressEnter" liveChange="fnLiveChange" editable="false" showValueHelp="false"
+										class="cl_s_inputField" maxLength="4"></Input>
+								</VBox>
+								<VBox width="67%">
+									<Label class="cl_init_inputLabel"></Label>
+									<Input width="100%" class="cl_s_descField" id="KID_MTART_DES1" editable="false"></Input>
+								</VBox>
+							</HBox>
+							<layoutData>
+								<grid:GridData span="L3 M12 S12"/>
+							</layoutData>
+						</VBox>
+							<VBox class="sapUiSmallTinyTop ">
+							<HBox>
+								<VBox width="40%" class="sapUiTinyMarginEnd">
+									<Label text="{i18n>Prodhier}"  class="cl_init_inputLabel"></Label>
+									<Input  submit="fnPressEnter" liveChange="fnLiveChange" editable="true" showValueHelp="false"
+										class="cl_s_inputField" maxLength="18"></Input>
+								</VBox>
+								<VBox width="60%">
+									<Label class="cl_init_inputLabel"></Label>
+									<Input width="100%" class="cl_s_descField"  editable="false"></Input>
+								</VBox>
+							</HBox>
+							<layoutData>
+								<grid:GridData span="L6 M12 S12" visibleXL="{JM_VisibleModel>/ProdHier}" visibleL="{JM_VisibleModel>/ProdHier}"
+								visibleM="{JM_VisibleModel>/ProdHier}" visibleS="{JM_VisibleModel>/ProdHier}"/>
+							</layoutData>
+						</VBox>
+							<VBox class="sapUiSmallTinyTop ">
+							<HBox>
+								<VBox width="34%" class="sapUiTinyMarginEnd">
+									<Label text="{i18n>packgmatgrpshort}"  class="cl_init_inputLabel"></Label>
+									<Input  submit="fnPressEnter" liveChange="fnLiveChange" editable="false" showValueHelp="false"
+										class="cl_s_inputField" maxLength="4"></Input>
+								</VBox>
+								<VBox width="66%">
+									<Label class="cl_init_inputLabel"></Label>
+									<Input width="100%" class="cl_s_descField"  editable="false"></Input>
+								</VBox>
+							</HBox>
+							<layoutData>
+								<grid:GridData span="L3 M12 S12"  visibleXL="{JM_VisibleModel>/PackGrp}" visibleL="{JM_VisibleModel>/PackGrp}"
+								visibleM="{JM_VisibleModel>/PackGrp}" visibleS="{JM_VisibleModel>/PackGrp}"/>
+							</layoutData>
+						</VBox>
+						<!--<VBox class="sapUiSmallTinyTop" >-->
+						<!--	<layoutData>-->
+						<!--		<grid:GridData span="L1 M7 S12" />-->
+						<!--	</layoutData>-->
+						<!--	<Label  class="cl_init_inputLabel"></Label>-->
+						<!--	<Input id="SID_STUFE_1_hier" class="cl_s_inputField" width="100%" editable="false" maxLength="18" liveChange="fnLiveChange"/>-->
+						<!--</VBox>-->
+					
+					</grid:Grid>
+				</VBox>
+				<VBox class="cl_reci_dupDialog_tableBox sapUiTinyMarginTopBottom">
+					<FlexBox class="sapUiSmallMarginBeginEnd" justifyContent="SpaceBetween" wrap="Wrap">
+						<!-- Left section -->
+						<HBox height="1.5rem" class="sapUiTinyMarginTopBottom">
+							<Label text="{i18n>TotalNumberofRecords}" class="sapUiTinyMarginBegin cl_tableHeaderTxt"/>
+							<Label text="{JM_ReciDuplicate>/length}" class="sapUiTinyMarginBegin cl_tableHeaderCntTxt"/>
+						</HBox>
+						<!-- Right section -->
+						<HBox justifyContent="End" class="sapUiTinyMarginTopBottom">
+							<Button text="{i18n>download}" icon="Image/Download.svg" class="sapUiSizeCompact cl_DupDialog_Download sapUiTinyMarginEnd"
+								press="fnDownloadDupDes"/>
+						</HBox>
+					</FlexBox>
+					<uitable:Table rows="{JM_ReciDuplicate>/Duplicate}" visibleRowCount="8" selectionMode="Single"
+						class="cl_opr_Tbl sapUiSmallMarginBeginEnd sapUiSmallMarginBottom sapUiTinyMarginTop">
+						<uitable:noData>
+							<VBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Nodatafound.gif'}" tooltip="{i18n>NoDatafound}"/>
+								<Label text="{i18n>NoDatafound}" class="cl_noDataText"/>
+							</VBox>
+						</uitable:noData>
+						<uitable:columns>
+							<uitable:Column width="5rem">
+								<Label text="{i18n>Status}"/>
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Plnnr}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem">
+								<Label text="{i18n>Percentage}"/>
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Plnal}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="6rem" visible="{JM_VisibleModel>/ProdHier}">
+								<Label text="{i18n>levelcode}"/>
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Verwe}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column visible="{JM_VisibleModel>/ProdHier}">
+								<Label text="{i18n>prodhierno}" />
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Ktext}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column visible="{JM_VisibleModel>/ProdHier}" >
+								<Label text="{i18n>prdhdesc}" />
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Status}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+								<uitable:Column visible="{JM_VisibleModel>/PackGrp}" >
+								<Label text="{i18n>Package Mat Grp}"/>
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Status}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+								<uitable:Column visible="{JM_VisibleModel>/PackGrp}">
+								<Label text="{i18n>packmatgrpdesc}"/>
+								<uitable:template>
+									<Label text="{JM_ReciDuplicate>Status}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:columns>
+					</uitable:Table>
+					<layoutData>
+						<grid:GridData span="L12 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</grid:Grid>
+		</VBox>
+		<buttons>
+			<Button text="{i18n>Cancel}" icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" width="5.5rem" class="cl_secondaryButton sapUiSmallMarginEnd"
+				press="fncloseDialog"/>
+			<Button text="{i18n>IgnoreandContinue}" id="id_dupSubmit" icon="{= ${JM_ImageModel>/path} + 'Continue.svg'}" width="11.5rem"
+				class="cl_primaryButton sapUiSmallMarginEnd" press="fnNavInitiator"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

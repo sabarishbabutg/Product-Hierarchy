@@ -1,0 +1,118 @@
+/* ===========================
+   Key Data Grid Style
+   =========================== */
+/* Remove SAPUI5 default dashed border */
+.sapMCbRo .sapMCbBg {
+  border: 1px solid #8289A3 !important;
+}
+html.sap-desktop .sapMBtn:focus>.sapMFocusable:not(.sapMBadgeIndicator)::before {
+	border:none !important;
+}
+.cl_kd_grid {
+    background: #ffffff;
+    padding-top: 0.7rem!important;
+    border-right: 1px solid #B6B5B5;
+    border-left: 1px solid #B6B5B5;
+    border-bottom: 1px solid #B6B5B5;
+    border-radius: 0px 0px 5px 5px;
+}
+
+
+/* ===========================
+   key Data Image Style
+   =========================== */
+
+.cl_imageContainerPrdHier {
+    position: relative;
+    bottom: 25px;
+    z-index: -1;
+    width: 100% !important;
+    height: auto !important;
+}
+
+.cl_imageContainerMatGrp {
+    position: relative;
+    top: 60px;
+    z-index: -1;
+    width: 100% !important;
+    height: auto !important;
+}
+
+.cl_fitImage {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.cl_kd_inputcont.sapUiRespGrid.sapUiRespGridHSpace1 {
+    padding: 0 !important;
+}
+
+.cl_kd_inputcont.sapUiRespGrid.sapUiRespGridHSpace1>div {
+    margin: 0 !important;
+}
+
+.cl_kd_chkbox .sapMCbBg {
+	background-color: #fff !important;
+    border-radius: 4px;
+    border: 1px solid #8289A3;
+    line-height: 15.9px !important;
+}
+.cl_kd_chkbox .sapMCbRo.sapMCbBg {
+     border: 0px solid #8289A3;
+    border-radius: 4px !important;         
+}
+.cl_kd_chkbox.sapMCb.sapMCbHasLabel:focus::before {
+    border: none !important;
+}
+
+.cl_kd_chkbox.sapMCb:focus::before {
+    border: none !important;
+}
+
+.cl_kd_chkbox.sapMCb:focus::before,
+.cl_kd_chkbox.sapMCb.sapMCbHasLabel:focus::before {
+    border: none !important;
+    outline: none !important;
+}
+
+.cl_kd_chkbox.sapMCbBg.sapMCbMarkChecked {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.cl_kd_chkbox .sapMCbBg.sapMCbMarkChecked::before {
+   width: 100% !important;
+    height: 100% !important;
+    color: white !important;
+    background-color: #3393A1;
+    border-radius: 0px;
+}
+/*Added by Jones on 15.12.2025 (start) */
+.cl_kd_radiobutton .sapMLabel {
+    font-size: 14px !important;
+    font-family: 'Segoe UI' !important;
+    font-weight: 400 !important;
+    color: #141414 !important;
+}
+/*To remove focus on radio buttons*/
+.cl_kd_radiobutton .sapMRb:focus::before {
+    border: none !important;
+}
+/*Style to change the fill color of radiobuttons*/
+.cl_kd_radiobutton .sapMRbSel .sapMRbBInn {
+    fill: #3393A1;
+}
+/*Style for radio button border*/
+.cl_kd_radiobutton .sapMRb .sapMRbB .sapMRbBOut {
+    stroke: #3393A1;
+}
+/*Added by Jones on 15.12.2025 (end) */
+.cl_processlabel.sapMLabel
+{
+	font-family: "Segoe UI" !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #141414 !important;
+    padding-left:5px;
+    border-left:4px solid #3393A1;
+}

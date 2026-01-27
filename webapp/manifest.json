@@ -1,0 +1,212 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "PRDH",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
+		},
+		"dataSources": {
+			"MDM_CONFIG_SRV": {
+				"uri": "/sap/opu/odata/exl/MDM_CONFIG_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/MDM_CONFIG_SRV/metadata.xml"
+				}
+			},
+			"MDM_PRODHIER_SRV": {
+				"uri": "/sap/opu/odata/exl/MDM_PRODHIER_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/MDM_PRODHIER_SRV/metadata.xml"
+				}
+			}
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"intent1": {
+					"signature": {
+						"parameters": {},
+						"additionalParameters": "allowed"
+					},
+					"semanticObject": "ZMDM_PH",
+					"action": "display"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "PRDH.view.App",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "PRDH.i18n.i18n"
+				}
+			},
+			"JM_CONFIG": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "MDM_CONFIG_SRV",
+				"preload": true
+			},
+			"JM_PRODHIER": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "MDM_PRODHIER_SRV",
+				"preload": true
+			},
+			"JM_KEYDATA": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": false
+			},
+			"JM_ParmModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": false
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				},
+				{
+					"uri": "css/dialog.css"
+				},
+				{
+					"uri": "css/Initiator.css"
+				},
+				{
+					"uri": "css/keydata.css"
+				},
+				{
+					"uri": "css/searchStyle.css"
+				}
+			]
+		},
+		"routing": {
+			"config": {
+				"viewPath": "PRDH.view",
+				"controlId": "id_app",
+				"routerClass": "sap.m.routing.Router"
+			},
+			"targets": {
+				"search": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "search",
+					"viewLevel": 1,
+					"controlAggregation": "pages"
+				},
+				"keydata": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "keydata",
+					"viewLevel": 2,
+					"controlAggregation": "pages"
+				},
+				"Initiator": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "Initiator",
+					"viewLevel": 3,
+					"controlAggregation": "pages"
+				}
+			},
+			"routes": [
+				{
+					"name": "search",
+					"pattern": "",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"search"
+					]
+				},
+				{
+					"name": "keydata",
+					"pattern": "keydata",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"keydata"
+					]
+				},
+				{
+					"name": "Initiator",
+					"pattern": "Initiator",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Initiator"
+					]
+				}
+			]
+		}
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/exl/mdm_ph/webapp",
+		"_version": "1.1.0"
+	}
+}

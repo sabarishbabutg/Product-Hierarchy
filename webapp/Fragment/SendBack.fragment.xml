@@ -1,0 +1,76 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:grid="sap.ui.layout" xmlns:uitable="sap.ui.table">
+	<Dialog title="Send Back" class="cl_Dup_Sendback_Dialog sapUiSizeCompact" contentWidth="900px" verticalScrolling="false" horizontalScrolling="false">
+		<customHeader>
+			<Toolbar class="cl_DialogToolbar" height="2.5rem">
+				<ToolbarSpacer/>
+				<Text text="{i18n>SendBack}" class="cl_DialogToolbarTitle sapUiTinyMarginTopBottom"/>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</customHeader>
+		<HBox justifyContent="End" class="sapUiSmallMarginEnd sapUiSmallMarginTop">
+			<FormattedText htmlText="{JM_MinApproverModel>/LabelText}" class="sapUiTinyMarginBottom sapUiTinyMarginEnd"></FormattedText>
+			<!--<Label text="{JM_MinApproverModel>/LabelText}"/>-->
+			<!--<FormattedText-->
+			<!--	htmlText="{ parts: [ { path: 'i18n>welcomeLine1' }, { path: 'JM_MinApproverModel>/LabelText' } ], formatter: 'MANAGED_BOM.Formatter.formatter.formatWelcomeText' }"/>-->
+		</HBox>
+		<HBox>
+			<grid:Grid class="cl_item_gridRemovePadding">
+				<VBox>
+					<uitable:Table id="idLevelTable" rows="{JM_LevelModel>/LevelData}" class="sapUiSmallMarginBottom sapUiTinyMarginBegin cl_opr_Tbl"
+						selectionMode="Single" rowSelectionChange="onLevelSelect">
+						<uitable:columns>
+							<uitable:Column>
+								<Label text="{i18n>Level}"/>
+								<uitable:template>
+									<Label class="sapUiTinyMarginBegin cl_table_label"
+										text="{ path: 'JM_LevelModel>Level', formatter: 'MANAGED_BOM.Formatter.formatter.formatLevelText' }"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:columns>
+					</uitable:Table>
+					<layoutData>
+						<grid:GridData span="L3 M12 S12"/>
+					</layoutData>
+				</VBox>
+				<VBox>
+					<uitable:Table id="idAgentTable" rows="{JM_AgentModel>/Agents}" class="sapUiSmallMarginBottom sapUiTinyMarginEnd cl_opr_Tbl"
+						selectionMode="None">
+						<uitable:columns>
+							<uitable:Column width="2.5rem">
+								<uitable:template>
+									<Image src="{JM_AgentModel>indicator}" tooltip="{i18n>Inidcator}" class="sapUiSmallMarginBegin cl_paddingtopcustom" width="1rem"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="8rem">
+								<Label text="{i18n>Agent}"/>
+								<uitable:template>
+									<Label text="{JM_AgentModel>Agent}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column width="12rem">
+								<Label text="Agent Name"/>
+								<uitable:template>
+									<Label text="{JM_AgentModel>AgentName}" class="sapUiTinyMarginBegin cl_table_label"/>
+								</uitable:template>
+							</uitable:Column>
+							<uitable:Column >
+								<Label text="CheckBox"/>
+								<uitable:template>
+									<CheckBox selected="{JM_AgentModel>checkboxstate}" class="sapUiTinyMarginBegin cl_paddingtopcustom cl_opr_checkbx"
+										enabled="{JM_AgentModel>checkboxEditable}"/>
+								</uitable:template>
+							</uitable:Column>
+						</uitable:columns>
+					</uitable:Table>
+					<layoutData>
+						<grid:GridData span="L9 M12 S12"/>
+					</layoutData>
+				</VBox>
+			</grid:Grid>
+		</HBox>
+		<buttons>
+			<Button text="Close"  icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" class="cl_secondaryButton sapUiSmallMarginEnd" press="onSendBackClose"/>
+			<Button text="Send Back"  icon="{= ${JM_ImageModel>/path} + 'SendBackW.svg'}" class="cl_primaryButton sapUiSmallMarginEnd" press="fnsendBack"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,362 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="PRDH.controller.search"
+	xmlns:uitable="sap.ui.table" xmlns:select="sap.m.Select" xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page showHeader="true" class="cl_pageBg sapUiSizeCompact" enableScrolling="true">
+				<customHeader>
+					<Toolbar class="cl_headerToolbar" width="100%">
+						<Image src="{= ${JM_ImageModel>/path} + 'MLogo.svg'}" class="sapUiTinyMarginTop sapUiTinyMarginBottom sapUiTinyMarginBegin" width="3rem"/>
+						<Label text="MDM : Product Hierarchy / Pack Mat Group / Mat Group" class="cl_titleFontLogo "/>
+						<ToolbarSpacer/>
+						<Label text="{JM_UserModel>/Agent} - {JM_UserModel>/Uname}" class="cl_userIdFont sapUiTinyMarginEnd"/>
+						<Image src="{= ${JM_ImageModel>/path} + 'ExalcaLogotiny.svg'}" tooltip="Exalca" class="sapUiSmallMarginEnd" width="1rem"></Image>
+					</Toolbar>
+				</customHeader>
+				<content>
+					<HBox visible="{JMVboxVisibilityModel>/RoadMapVisible}" class="cl_search_roadmap sapUiTinyMarginTop sapUiSmallMarginBeginEnd">
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<HBox alignItems="Center" justifyContent="Center" class="cl_search_border">
+									<Image src="{= ${JM_ImageModel>/path} + 'SearchR.svg'}" tooltip="search" class="cl_kd_paddingTop sapUiTinyMarginEnd"></Image>
+									<Label text="{i18n>search_l}" class="cl_search_roadMapLabelHighlight" visible="{RoadMapUI>/labelVisible}"/>
+								</HBox>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Keydata.svg'}" tooltip="Key data" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="Key Data" class="cl_search_roadMapLabel" visible="{RoadMapUI>/labelVisible}"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Initiator.svg'}" tooltip="{i18n>initiator}" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>initiator}" class="cl_search_roadMapLabel" visible="{RoadMapUI>/labelVisible}"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Reviewer.svg'}" tooltip="{reviewer_tt}" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>reviewer_l}" class="cl_search_roadMapLabel" visible="{RoadMapUI>/labelVisible}"/>
+							</HBox>
+						</VBox>
+						<HBox class="cl_search_RoadMapVline" visible="{RoadMapUI>/labelVisible}"></HBox>
+						<VBox width="20%">
+							<HBox alignItems="Center" justifyContent="Center">
+								<Image src="{= ${JM_ImageModel>/path} + 'Approver.svg'}" tooltip="Approver" class="cl_search_paddingTop sapUiTinyMarginEnd"></Image>
+								<Label text="{i18n>approver_l}" class="cl_search_roadMapLabel" visible="{RoadMapUI>/labelVisible}"/>
+							</HBox>
+						</VBox>
+					</HBox>
+					<VBox id="id_SearchContainer" class="cl_search_container" fitContainer="true" height="auto">
+						<HBox visible="{JMVboxVisibilityModel>/visible}" class="sapUiSmallMarginTop " width="100%" height="auto">
+							<VBox class="cl_s_borderForVboxes " width="100%" height="auto" id="id_basicSearchBox">
+								<OverflowToolbar class="cl_s_BasicSearchToolbar sapUiTinyMarginTopBottom">
+									<Text text="{i18n>BasicSearch}" class="cl_s_SelectVariant sapUiTinyMarginBeginEnd cl_s_basicsearchtext"/>
+									<ToolbarSpacer/>
+									<Text text="{i18n>SearchVariant}" class="cl_s_basicsearchtext cl_s_SelectVariant sapUiTinyMarginEnd"/>
+									<Select id="id_variants" class="cl_s_selectVarient" width="20.5%" selectedKey="0" change="fnSelectVar"
+										items="{JMComboModel>/ComboBoxvariants}">
+										<core:Item key="{JMComboModel>VariantName}" text="{JMComboModel>VariantName}"/>
+									</Select>
+									<Image src="{= ${JM_ImageModel>/path} + 'SaveVariantButton.svg'}" press="fnOpenVariant" width="1.8rem"
+										class="sapUiTinyMarginEnd cl_SaveVariantButton" tooltip="{i18n>CreateVariant}"/>
+								</OverflowToolbar>
+								<l:Grid defaultSpan="L3 M6 S12" width="100%">
+									<VBox >
+										<Label text="{i18n>PRODH}" class="cl_init_inputLabel"/>
+										<Input id="SID_STUFE" class="cl_s_inputField" showValueHelp="true" valueHelpRequest="fnF4press" liveChange="fnLiveChange"
+											valueHelpOnly="false" maxLength="18"></Input>
+									</VBox>
+									<VBox >
+										<Label text="{i18n>description}" class="cl_init_inputLabel"/>
+										<Input id="SID_STUFE_DES" class="cl_s_inputField" editable="false" width="100%" maxLength="40"/>
+									</VBox>
+									<VBox >
+										<layoutData>
+											<l:GridData span="L1 M4 S12"/>
+										</layoutData>
+										<Label text="{i18n>levelno}" class="cl_init_inputLabel"/>
+										<HBox justifyContent="SpaceBetween" width="100%">
+											<Input id="SID_STUFE_LEV" width="100%" class="cl_s_inputField" valueHelpRequest="fnF4Levelpress" showValueHelp="true" maxLength="1">
+												<layoutData>
+													<FlexItemData growFactor="1"/>
+												</layoutData>
+											</Input>
+										</HBox>
+									</VBox>
+									<VBox>
+										<layoutData>
+											<l:GridData span="L4 M12 S12"/>
+										</layoutData>
+										<HBox >
+											<VBox width="36%" class="sapUiTinyMarginEnd">
+												<Label text="{i18n>MaterialGrp}" class="cl_init_inputLabel"/>
+												<Input class="cl_s_inputField" id="SID_MAGRV" showValueHelp="true" valueHelpRequest="fnF4press" liveChange="fnLiveChange" maxLength="9"/>
+											</VBox>
+											<VBox width="64%">
+												<Label text="{i18n>MaterialGrpdes}" class="cl_init_inputLabel"/>
+												<Input class="cl_s_descField" id="SID_MAGRV_DES" editable="false" liveChange="fnLiveChange"/>
+											</VBox>
+										</HBox>
+									</VBox>
+									<!--Added by Jones on 16.12.2025(start)-->
+									<VBox>
+										<layoutData>
+											<l:GridData span="L3 M12 S12"/>
+										</layoutData>
+										<HBox >
+											<VBox width="36%" class="sapUiTinyMarginEnd">
+												<Label text="Mat Grp" class="cl_init_inputLabel"/>
+												<Input class="cl_s_inputField" id="ID_PH_MATKL" showValueHelp="true" valueHelpRequest="fnF4press" liveChange="fnLiveChange" maxLength="9"/>
+											</VBox>
+											<VBox width="64%">
+												<Label text="Mat Grp Desc" class="cl_init_inputLabel"/>
+												<Input class="cl_s_descField" id="ID_PH_MATKL_DES" editable="false" liveChange="fnLiveChange"/>
+											</VBox>
+										</HBox>
+									</VBox>
+									<!--Added by Jones on 16.12.2025(end)-->
+								</l:Grid>
+								<VBox id="id_advance" visible="{JMVboxVisibilityModel>/AdvanceSearch}">
+									<HBox class="cl_s_basic sapUiTinyMarginBeginEnd sapUiSmallMarginBottom sapUiSmallMarginBegin " height="1.2rem" width="100%">
+										<Text text="Advance Search" class=" sapUiTinyMarginBeginEnd cl_s_basicsearchtext"/>
+									</HBox>
+									<l:Grid defaultSpan="L3 M6 S12" width="100%">
+										<VBox>
+											<Label text="{i18n>LevCod1}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_1" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="2"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_1_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+										<VBox>
+											<Label text="{i18n>LevCod2}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_2" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="2"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_2_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+										<VBox>
+											<Label text="{i18n>LevCod3}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_3" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="2"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_3_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+										<VBox>
+											<Label text="{i18n>LevCod4}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_4" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="3"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_4_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+									</l:Grid>
+									<l:Grid defaultSpan="L3 M6 S12" width="100%">
+										<VBox>
+											<Label text="{i18n>LevCod5}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_5" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="3"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_5_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+										<VBox>
+											<Label text="{i18n>LevCod6}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_6" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="4"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_6_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+										<VBox>
+											<Label text="{i18n>LevCod7}" class="cl_init_inputLabel"/>
+											<HBox >
+												<VBox width="33%" class="sapUiTinyMarginEnd">
+													<Input class="cl_s_inputField" id="SID_STUFE_7" showValueHelp="true" valueHelpRequest="fnF4Levelpress" liveChange="fnLiveChange"
+														maxLength="1"/>
+												</VBox>
+												<VBox width="67%">
+													<Input class="cl_s_descField" id="SID_STUFE_7_DES" editable="false"/>
+												</VBox>
+											</HBox>
+										</VBox>
+									</l:Grid>
+								</VBox>
+								<VBox>
+									<!--<Text text="Note : * Represent to Search All Respective Data " class="sapUiSmallMarginBegin"/>-->
+								</VBox>
+								<l:Grid defaultSpan="L12 M12 S12">
+									<OverflowToolbar class="cl_toolbarBorderBottomRemove">
+										<HBox class="cl_notebg">
+											<Image src="{= ${JM_ImageModel>/path} + 'Note.svg'}" class="sapUiSmallMarginBegin"></Image>
+											<Text text="Note : * Represent to Search All Respective Data Except Advance Search"
+												class=" sapUiSmallMarginEnd sapUiTinyMarginBegin cl_s_notetext"/>
+										</HBox>
+										<ToolbarSpacer/>
+										<Text text="{i18n>AdvanceSearch}" class="cl_s_advsearchtext" wrapping="false"/>
+										<Image id="id_arrowIcon" src="{= ${JM_ImageModel>/path} + 'AdvanceSearchDownArrow.svg'}" class="cl_s_advsearch cl_s_arr" width="1.2rem"
+											press="fnAdvanceSearchOpen" tooltip="Exapand"/>
+										<RadioButtonGroup select="fnRadioChange" columns="2" id="idRBGroup" class="cl_s_radiobutton ">
+											<RadioButton enabled="{viewModel>/isEditable}" text="{i18n>AND}" id="id_and" class="cl_s_radiobutton"/>
+											<RadioButton enabled="{viewModel>/isEditable}" text="{i18n>OR}" id="id_or" class="cl_s_radiobutton"/>
+										</RadioButtonGroup>
+										<Button text="{i18n>clrAllBtnText}" icon="{= ${JM_ImageModel>/path} + 'ClearAll_ph.svg'}"
+											class="cl_DupDialog_change sapUiTinyMarginBeginEnd" press="fnOpenMessageClrAll"/>
+										<Button text="{i18n>search_l}" icon="{= ${JM_ImageModel>/path} + 'Search.svg'}" class="cl_mmp_PrimaryButtonPlant sapUiTinyMarginBegin"
+											press="fnsearch"/>
+									</OverflowToolbar>
+								</l:Grid>
+							</VBox>
+						</HBox>
+						<VBox class=" cl_s_borderForVboxes sapUiSmallMarginTop" width="100%" height="55%" id="id_resultBox">
+							<OverflowToolbar class="cl_toolbarBorderBottomRemove sapUiSmallMarginBegin sapUiTinyMarginTopBottom sapUiSmallMarginEnd">
+								<Image width="1.6rem" src="{= ${JM_ImageModel>/path} + 'ColumnFilter.svg'}" class="cl_ColumnCustomize" tooltip="{i18n>TableFilter}"
+									press="fnTableFilter"/>
+								<Label text="{i18n>ResultList}" class="sapUiTinyMarginBegin cl_s_ResListtext"></Label>
+								<Label text="" id="id_resultcnt" class="sapUiTinyMarginBegin cl_s_ResultCnt"></Label>
+								<ToolbarSpacer/>
+								<Toolbar class="cl_s_customSearchWrapper sapUiSizeCompact sapUiTinyMarginEnd" width="18%">
+									<Image src="{= ${JM_ImageModel>/path} + 'SearchInputIcon.svg'}" tooltip="{i18n>SearchHere}" width="18px" height="18px"/>
+									<Input id="Id_SearchHere" liveChange="fnsearchByFilter" change="onsearchByFilter" placeholder="{i18n>SearchHere}"
+										class="cl_s_inputNoBorderSearchField cl_s_searchInput"/>
+								</Toolbar>
+								<MenuButton text="{i18n>NewReq}" icon="{= ${JM_ImageModel>/path} + 'CreateNewIcon.svg'}"
+									class="cl_BOM_ButtonImage cl_mmp_PrimaryButtonPlant">
+									<Menu itemSelected="fnMenu">
+										<MenuItem text="Create" key="PHC"/>
+										<!--<MenuItem text="UWL" key="UWL"/>-->
+										<!--<MenuItem text="Dashboard" key="DASH"/>-->
+									</Menu>
+								</MenuButton>
+								<Image width="1.6rem" src="{= ${JM_ImageModel>/path} + 'DownloadSearch.svg'}" tooltip="{i18n>DownloadData}" press="fnDownloadTable"
+									class="cl_ColumnCustomize sapUiSmallMarginBegin"/>
+								<Button id="id_ExpandButton" icon="{= ${JM_ImageModel>/path} + 'expand.svg'}" class="cl_s_expandbutton sapUiSizeCompact"
+									press="fnPressExpand" tooltip="{i18n>ExpandTable}"/>
+								<layoutData>
+									<l:GridData span="L12 M12 S12"/>
+								</layoutData>
+							</OverflowToolbar>
+							<uitable:Table id="id_ResultTable" rows="{JM_SEARCH>/}" selectionMode="Single" ariaLabelledBy="tableTitle" selectionBehavior="Row"
+								enableCellFilter="{ui>/cellFilterOn}" visibleRowCount="4" visibleRowCountMode="Interactive"
+								class=" sapUiSmallMarginBeginEnd sapUiTinyMarginBottom cl_st_table cl_s_ui_table cl_s_tableselhdrWF">
+								<uitable:noData>
+									<VBox alignItems="Center" justifyContent="Center">
+										<Image src="{= ${JM_ImageModel>/path} + 'Nodatafound.gif'}" width="170px" height="170px" tooltip="{i18n>NoDatafound}"/>
+										<Label text="{i18n>NoDatafound}" class="cl_noDataText"/>
+									</VBox>
+								</uitable:noData>
+								<uitable:columns>
+									<uitable:Column filterProperty="Vtype" sortProperty="Vtext" tooltip="{i18n>type}" width="15%">
+										<Text text="{i18n>type}" class="cl_s_tabletext"/>
+										<uitable:template>
+											<HBox >
+												<Image src="{ parts: [ 'JM_ImageModel>/path', 'JM_SEARCH>Status' ], formatter: '.formatter.fnSSgetStatusIcon' }"
+													tooltip="{JM_SEARCH>Message}" class="sapUiTinyMarginEnd cl_statusImage"></Image>
+												<!--<ObjectStatus class="cl_s_blackText cl_s_statusIcon"-->
+													<!--icon="{ parts: [ 'JM_ImageModel>/path', 'JM_SEARCH>Status' ], formatter: '.formatter.fnSSgetStatusIcon' }"-->
+													<!--state="{path: 'JM_SEARCH>Status', formatter: '.formatter.fnSSgetStatusState'}"-->
+													<!--tooltip="{path: 'JM_SEARCH>Status', formatter: '.formatter.fnSSgetStatusText'}"/>-->
+												<Text text="{JM_SEARCH>Vtype}" class="cl_s_tablecolTxt" wrapping="false"/>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column id="idColProdhierno" filterProperty="Prodh" sortProperty="Prodh" tooltip="{i18n>Prodhierno}" width="25%">
+										<Text text="{i18n>Prodhierno}" class="cl_s_tabletext"/>
+										<uitable:template>
+											<!--<Link text="{JM_SEARCH>Prodh}" press="fnTransidPress" class="cl_s_table_link"></Link>-->
+											<HBox >
+												<Link text="{JM_SEARCH>Prodh}" class="cl_s_table_link"/>
+											</HBox>
+										</uitable:template>
+									</uitable:Column >
+									<uitable:Column id="idColDesc" filterProperty="Vtext" sortProperty="Vtext" tooltip="{i18n>description}" width="20%">
+										<Text text="{i18n>description}" class="cl_s_tabletext"/>
+										<uitable:template>
+											<Text text="{JM_SEARCH>Vtext}" class="cl_s_tablecolTxt" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column id="idColLevelno" filterProperty="Stufe" sortProperty="Stufe" width="20%" tooltip="{i18n>levelno}">
+										<Text text="{i18n>levelno}" class="cl_s_tabletext"/>
+										<uitable:template >
+											<Text id="id_desc" text="{path: 'JM_SEARCH>Stufe', formatter: '.formatter.formatStufe'}" class="cl_s_tablecolTxt" wrapping="false"
+												tooltip="{JM_SEARCH>Maktx}"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column id="idColMatkl" filterProperty="Magrv" sortProperty="Magrv" tooltip="{i18n>MaterialGrp}" width="20%">
+										<Text text="{i18n>MaterialGrp}" class="cl_s_tabletext"/>
+										<uitable:template>
+											<Text text="{JM_SEARCH>Magrv}" class="cl_s_tablecolTxt" wrapping="false"/>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column id="idMatDes" filterProperty="Bezei" sortProperty="Bezei" tooltip="{i18n>Matdes}" width="20%">
+										<Text text="{i18n>MaterialGrpdes}" class="cl_s_tabletext"/>
+										<uitable:template>
+											<HBox alignItems="Center">
+												<Text text="{JM_SEARCH>Bezei}" class="cl_s_tablecolTxt" wrapping="false"/>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<!--Added by Jones on 16.12.2025(start)-->
+									<uitable:Column filterProperty="Matkl" sortProperty="Matkl" width="20%">
+										<Text text="Mat Grp" tooltip="Material Group"/>
+										<uitable:template>
+											<HBox alignItems="Center">
+												<Text text="{JM_SEARCH>Matkl}" class="cl_s_tablecolTxt" wrapping="false"/>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<uitable:Column filterProperty="Wgbez" sortProperty="Wgbez" width="20%">
+										<Text text="Mat Grp Desc" tooltip="Material Group Description"/>
+										<uitable:template>
+											<HBox alignItems="Center">
+												<Text text="{JM_SEARCH>Wgbez}" class="cl_s_tablecolTxt" wrapping="false"/>
+											</HBox>
+										</uitable:template>
+									</uitable:Column>
+									<!--Added by Jones on 16.12.2025(end)-->
+								</uitable:columns>
+							</uitable:Table>
+							<HBox id="idPaginationBar" justifyContent="SpaceBetween" class="sapUiSmallMarginBegin sapUiTinyMarginEnd sapUiTinyMarginBottom"></HBox>
+							<!--<HBox width="100%" justifyContent="Center">-->
+							<!--	<Image src="Image/leftArr.svg" press="fnDecrease"/>-->
+							<!--	<Image src="Image/rightArrow.svg" press="fnIncrease"/>-->
+							<!--</HBox>-->
+						</VBox>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
