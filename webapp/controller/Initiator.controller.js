@@ -1946,13 +1946,16 @@ sap.ui.define([
 							if (aResults[level1]) {
 								previousText += aResults[level1];
 								that.getView().byId(inputId).setValue(aResults[level1]);
+								that.getView().byId(inputId).setValueState("None");
 								that.getView().byId(heirId).setValue(previousText);
 								that.getView().byId(inputId).setEditable(true);
 								if (that.vDescEdit === "C") {
 									that.getView().byId(descId).setValue(aResults[description]);
+									that.getView().byId(descId).setValueState("None");
 									that.getView().byId(descId).setEditable(true);
 								} else {
 									that.getView().byId(descId).setValue(aResults[description]);
+									that.getView().byId(descId).setValueState("None");
 									that.getView().byId(descId).setEditable(false);
 								}
 								that.lastLevelIndex = i;
