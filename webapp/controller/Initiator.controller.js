@@ -296,6 +296,10 @@ sap.ui.define([
 					if (oData.Msgtype !== "E") {
 						that.vDescEdit = oData.Msgtype;
 						that.fnsetTrphState(oData);
+						var desc = oData.Description;
+						if(desc){
+							that.getView().byId("ID_DES").setValue(desc);
+						}
 						var item = oData.NavPHItems.results[0];
 						var highestFilled = 0;
 						for (var i = 1; i <= 7; i++) {
@@ -319,7 +323,7 @@ sap.ui.define([
 								// Set code and description
 								if (oCodeField) {
 									oCodeField.setValue(levelVal);
-									if (oContextModeldata.Ind === "T" || oContextModeldata.Level === "R" ) {
+									if (oContextModeldata.Ind === "T" || oContextModeldata.Level === "R") {
 										oCodeField.setEditable(false);
 									}
 								}
@@ -486,6 +490,19 @@ sap.ui.define([
 								oMatgrpDes.setValue(vMatGrpDesc);
 								if (oContextModeldata.Ind === "T" || oContextModeldata.Level === "R") {
 									oMatgrpDes.setEditable(false);
+								}
+							}
+						}
+						
+						//  Description
+						if (desc) {
+							var ovDesc = that.byId("ID_DES");
+							var oVDescCnt = that.byId("ID_DES_CNT");
+							if (ovDesc) {
+								ovDesc.setValue(desc);
+								oVDescCnt.setValue(desc.length);
+								if (oContextModeldata.Ind === "T" || oContextModeldata.Level === "R") {
+									ovDesc.setEditable(false);
 								}
 							}
 						}
@@ -852,7 +869,7 @@ sap.ui.define([
 			if (odata.AppId === "MG" || odata.AppId === "PM") {
 				model = this.getView().getModel("JM_KeyDataVisible");
 				if (odata.TrNum !== "") {
-					this.getView().byId("id_dynamicTrvbox").setVisible(false);
+					// this.getView().byId("id_dynamicTrvbox").setVisible(false);
 					this.getView().byId("id_container").removeStyleClass("cl_init_Maincont");
 					this.getView().byId("id_container").addStyleClass("cl_init_MaincontSS");
 					model.setProperty("/dynamicSpanRb", "L9 M12 S12");
@@ -885,6 +902,7 @@ sap.ui.define([
 				if (odata.TrNum !== "") {
 					model.setProperty("/trVisible", true);
 					model.setProperty("/TrValue", odata.TrNum);
+					// this.getView().byId("id_dynamicTrvbox").setVisible(false);
 					if (odata.Ind === "X") {
 						model.setProperty("/StatusText", "Success");
 						this.getView().byId("id_tr_ind").removeStyleClass("cl_Tr_IndicatorR");
@@ -1073,7 +1091,7 @@ sap.ui.define([
 					"DocType": oData.NavPHAttachments.results[b].FileName.split('.')[1],
 					"Xstring": oData.NavPHAttachments.results[b].Xstring,
 					"MimeType": oData.NavPHAttachments.results[b].MimeType,
-					"Username" : oData.NavPHAttachments.results[b].Username,
+					"Username": oData.NavPHAttachments.results[b].Username,
 					"Size": oData.NavPHAttachments.results[b].FileSize,
 					"CreatedOn": oData.NavPHAttachments.results[b].CreatedOn,
 					"CreatedBy": oData.NavPHAttachments.results[b].CreatedBy
@@ -1325,7 +1343,6 @@ sap.ui.define([
 				return;
 			}
 			clearTimeout(this._liveChangeTimer);
-
 			this._liveChangeTimer = setTimeout(function() {
 				if (this.f4Cache["ID_PH_MATKL"]) {
 					var rows = this.f4Cache["ID_PH_MATKL"].rows;
@@ -1370,7 +1387,6 @@ sap.ui.define([
 						}
 					}.bind(this), 300);
 				}
-
 			}.bind(this), 300);
 
 		},
@@ -1464,6 +1480,7 @@ sap.ui.define([
 			var currectLvlCode;
 			var f4Data;
 			var result;
+			
 
 			// var checkOldValue = this.byId(descId)._oldValue;
 			if (this.State === "I") { // initiator logive we donn't store the old value 
@@ -1586,12 +1603,12 @@ sap.ui.define([
 				oNextDesc.setEditable(true);
 			}
 			oSrc._oldValue = vShort; //line added on 18-12-2025
-
+			oSrc.setValue(vValue.toUpperCase()); 
 			clearTimeout(this._liveChangeTimer);
 			this._liveChangeTimer = setTimeout(function() {
 				this.fnLevelValidation().then(function(Status) {
 					if (Status) {
-
+						
 					}
 				}.bind(this));
 			}.bind(this), 300);
@@ -1679,6 +1696,7 @@ sap.ui.define([
 			}
 			if (sFieldId === "SID_MAGRV_des") {
 				this._PkgMatGrpDesLiveChange(oSrc);
+				oSrc.setValue(vValue.toUpperCase());
 			}
 
 			if (sFieldId === "ID_PH_MATKL") {
@@ -1686,6 +1704,7 @@ sap.ui.define([
 			}
 			if (sFieldId === "ID_PH_MATKL_des") {
 				this._MatGrpDesLiveChange(oSrc);
+				oSrc.setValue(vValue.toUpperCase());
 			}
 
 			// =========================
@@ -1747,7 +1766,7 @@ sap.ui.define([
 					"SID_STUFE_5" || shortId === "SID_STUFE_6" || shortId === "SID_STUFE_7") {
 					if (maxLen === vValue.length) {
 						this._levelliveChange(Number(lvl), vValue);
-					}else{
+					} else {
 						this.getView().byId(descId).setEditable(false);
 					}
 				}
@@ -3286,7 +3305,7 @@ sap.ui.define([
 					Xstring: row.Xstring || "",
 					FileSize: row.Size,
 					Username: row.Username,
-					CreatedOn : row.CreatedOn
+					CreatedOn: row.CreatedOn
 				});
 			});
 
@@ -3395,6 +3414,13 @@ sap.ui.define([
 			var that = this;
 			var oModel = this.getOwnerComponent().getModel("JM_PRODHIER");
 			busyDialog.open();
+
+			// added by sabarish 
+			var desc = this.getView().byId("ID_DES");
+			if (desc) {
+				oPayload.Description = desc.getValue();
+			}
+
 			oModel.create("/Product_KeyDataSet", oPayload, {
 				success: function(oData) {
 
@@ -3501,8 +3527,8 @@ sap.ui.define([
 					MimeType: row.MimeType || "",
 					Xstring: row.Xstring || "",
 					FileSize: row.Size,
-						Username: row.Username,
-					CreatedOn : row.CreatedOn
+					Username: row.Username,
+					CreatedOn: row.CreatedOn
 				});
 			});
 
@@ -3812,8 +3838,8 @@ sap.ui.define([
 					MimeType: row.MimeType || "",
 					Xstring: row.Xstring || "",
 					FileSize: row.Size,
-						Username: row.Username,
-					CreatedOn : row.CreatedOn
+					Username: row.Username,
+					CreatedOn: row.CreatedOn
 				});
 			});
 
@@ -4929,13 +4955,22 @@ sap.ui.define([
 			}.bind(this));
 
 		},
+		
+		fnNewDescription:function(oEvent){
+			var oSrc = oEvent.getSource();
+			var value = oSrc.getValue();
+			this.getView().byId("ID_DES_CNT").setValue(value.length);
+			oSrc.setValue(value.toUpperCase());
+		},
+		
+		
 		// *-------------------------------------------------------------------------------------
 		//		Function for to resize the responsive 
 		// *-------------------------------------------------------------------------------------
 		fnMobileViewChanges: function() {
 			this.getView().getModel("RoadMapUI").setProperty("/labelVisible", false);
-			this.getView().byId("id_roadmap").removeStyleClass("cl_roadmap");
-			this.getView().byId("id_roadmap").addStyleClass("cl_roadmapSS");
+			// this.getView().byId("id_roadmap").removeStyleClass("cl_roadmap");
+			// this.getView().byId("id_roadmap").addStyleClass("cl_roadmapSS");
 			// 	this.getView().byId("id_roadmapHighlighter").removeStyleClass("cl_Highlightborder_roadMap");
 			// 	this.getView().byId("id_roadmapHighlighter").addStyleClass("cl_Highlightborder_roadMapSS");
 		},
@@ -4956,7 +4991,7 @@ sap.ui.define([
 			} else {
 				this.fnTabDesktopViewChanges();
 			}
-		},
+		}
 	});
 
 });

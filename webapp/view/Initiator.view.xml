@@ -55,9 +55,9 @@
 										<RadioButtonGroup id="id_kdradio" columns="3" class="cl_kd_radiobutton sapUiSmallMarginLeft">
 											<RadioButton text="Product Hierarchy" enabled="false"/>
 											<!--"Add by kalai Arasu on 16.01.2026 id-->
-											<RadioButton  id="KID_PM" text="Pack Mat Grp" enabled="false"/>
+											<RadioButton id="KID_PM" text="Pack Mat Grp" enabled="false"/>
 											<!--"Add by kalai Arasu on 16.01.2026 id-->
-											<RadioButton  id="KID_MG" text="Material Group" enabled="false"/>
+											<RadioButton id="KID_MG" text="Material Group" enabled="false"/>
 										</RadioButtonGroup>
 										<!--</HBox>-->
 										<layoutData>
@@ -115,11 +115,26 @@
 												visibleS="{viewModel>/showMatDiv}"/>
 										</layoutData>
 									</VBox>
-									<VBox id = "id_dynamicTrvbox">
+									<VBox>
+										<Label text="Description" class="cl_init_inputLabel"></Label>
+										<HBox>
+											<VBox width="90%" class="sapUiTinyMarginEnd">
+												<Input id="ID_DES" class="cl_s_inputField" maxLength="40" liveChange="fnNewDescription"></Input>
+											</VBox>
+											<VBox width="10%" class="sapUiTinyMarginEnd">
+												<Input id="ID_DES_CNT" class="cl_s_inputField" editable="false"></Input>
+											</VBox>
+										</HBox>
 										<layoutData>
-											<l:GridData span="L3 M12 S12"/>
+											<l:GridData span="L3 M12 S12" visibleXL="{viewModel>/showMatDiv}" visibleL="{viewModel>/showMatDiv}" visibleM="{viewModel>/showMatDiv}"
+												visibleS="{viewModel>/showMatDiv}"/>
 										</layoutData>
 									</VBox>
+									<!--<VBox id="id_dynamicTrvbox">-->
+									<!--	<layoutData>-->
+									<!--		<l:GridData span="L3 M12 S12"/>-->
+									<!--	</layoutData>-->
+									<!--</VBox>-->
 									<!---->
 									<VBox visible="{JM_KeyDataVisible>/trVisible}">
 										<Label text="Transport Request" class="cl_init_inputLabel"></Label>
@@ -215,7 +230,7 @@
 												<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin">
 													<Label text="{i18n>Stat}" class="cl_init_inputLabel"/>
 													<HBox id="SID_STUFE_1_IND" class="cl_indicator sapUiTinyMarginBottom" visible="false">
-														<Button id="SID_STUFE_1_BTN"  class="cl_Indicator"></Button>
+														<Button id="SID_STUFE_1_BTN" class="cl_Indicator"></Button>
 													</HBox>
 													<!--</VBox>-->
 													<layoutData>
@@ -520,7 +535,7 @@
 														<Input id="SID_MAGRV" class="cl_inputField" showValueHelp="true" valueHelpRequest="fnSamplepress" liveChange="fnLiveChange" maxLength="4"/>
 													</VBox>
 													<VBox width="67%">
-														<Input class="cl_inputField" id="SID_MAGRV_des" liveChange="fnLiveChange" editable="false"/>
+														<Input class="cl_inputField" id="SID_MAGRV_des" liveChange="fnLiveChange" editable="false" maxLength="20"/>
 													</VBox>
 													<HBox class="sapUiTinyMarginBegin cl_indicator" id="SID_MAGRV_IND" visible="false">
 														<Button id="SID_MAGRV_BTN" icon="sap-icon://circle-task-2" class="cl_IndicatorS"></Button>
@@ -566,7 +581,7 @@
 														<Input id="ID_PH_MATKL" class="cl_inputField" showValueHelp="true" valueHelpRequest="fnSamplepress" liveChange="fnLiveChange" maxLength="9"/>
 													</VBox>
 													<VBox width="67%">
-														<Input class="cl_inputField" id="ID_PH_MATKL_des" liveChange="fnLiveChange" editable="true"/>
+														<Input class="cl_inputField" id="ID_PH_MATKL_des" liveChange="fnLiveChange" editable="true" maxLength="20"/>
 													</VBox>
 													<HBox class="sapUiTinyMarginBegin cl_indicator" id="ID_PH_MATKL_IND" visible="false">
 														<Button id="ID_PH_MATKL_BTN" icon="sap-icon://circle-task-2" class="cl_IndicatorS"></Button>
