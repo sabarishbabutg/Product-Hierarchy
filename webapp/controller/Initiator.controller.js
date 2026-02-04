@@ -1507,7 +1507,7 @@ sap.ui.define([
 							}
 						}
 						if (!indChanged) {
-							this._changeAndNewCheck(lvl, vValue, oSrc);
+							
 							this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", "change");
 						}
 					}
@@ -1629,6 +1629,8 @@ sap.ui.define([
 						var text = this.getView().byId(btnId).getText();
 						if (text === "new") {
 							this._changeAndNewCheck(lvl, vValue, oSrc);
+						}if(text === "Change"){
+							this._changeAndNewCheck(lvl, vValue, oSrc);
 						}
 					}
 				}.bind(this));
@@ -1636,29 +1638,34 @@ sap.ui.define([
 		},
 
 		_changeAndNewCheck: function(lvl, vValue, oSrc) {
-			var aData = this.f4Cache[lvl].rows || [];
-			var bDuplicateFound = false;
-			var oMatchedItem = null;
+			var levelId = 'SID_STUFE_' + lvl;
+			var oPayload = {};
+			oPayload.NavPHItems = [];
+			var levelKey = "Level" + lvl;
+			var vTextKey = "Vtext" + lvl;
 
-			var sInputValue = (vValue || "").replace(/\s+/g, "").toUpperCase();
+			var oItem = {};
+			oItem[levelKey] = this.getView().byId(levelId).getValue();
+			oItem[vTextKey] = vValue;
 
-			for (var i = 0; i < aData.length; i++) {
-				var oItem = aData[i];
-				var sText = oItem.col2 || oItem.Value2 || "";
-				var sF4Value = sText.replace(/\s+/g, "").toUpperCase();
+			oPayload.NavPHItems.push(oItem);
+			oPayload.Lvl = "L" + String(lvl);
+			oPayload.Msgtype = "V";
+			oPayload.Ind = "V";
+			var ServiceCall = this.getOwnerComponent().getModel("JM_PRODHIER");
+			ServiceCall.create("/Product_KeyDataSet", oPayload, {
+				success: function(oData) {
+					if (oData.Msgtype === "E") {
+						oSrc.setValueState(sap.ui.core.ValueState.Error);
+						oSrc.setValueStateText(oData.Message);
+						ErrorHandler.showCustomSnackbar(oData.Message, "Error", this);
+					}
+				}.bind(this),
+				error: function(oResponse) {
 
-				if (sF4Value === sInputValue) {
-					oMatchedItem = oItem;
-					bDuplicateFound = true;
-					break;
 				}
-			}
-			if (bDuplicateFound) {
-				oSrc.setValueState(sap.ui.core.ValueState.Error);
-				oSrc.setValueStateText("This value already exists for code " + (oMatchedItem.col1 || oMatchedItem.Value1 || ""));
-				ErrorHandler.showCustomSnackbar("This value already exists for code " + (oMatchedItem.col1 || oMatchedItem.Value1 || ""), "Error",
-					this);
-			}
+			});
+
 		},
 
 		_levelliveChange: function(lvl, vValue) {
@@ -1679,20 +1686,19 @@ sap.ui.define([
 							this._getNextLevelFields(vValue, level).then(function(levelStats) {
 								if (levelStats) {
 									// var nextHierId = "SID_STUFE_" + level + "_hier";
-									
+
 									// ---- Hierarchy build ----
-								if (this.getView().byId(this.selectedField + "_hier")) {
-									var levelNum = parseInt(level);
-									var prevValue = "";
-									if (levelNum > 1) {
-										var prevFieldId = "SID_STUFE_" + (levelNum - 1) + "_hier";
-										var prevField = this.getView().byId(prevFieldId);
-										if (prevField) prevValue = prevField.getValue();
+									if (this.getView().byId(this.selectedField + "_hier")) {
+										var levelNum = parseInt(level);
+										var prevValue = "";
+										if (levelNum > 1) {
+											var prevFieldId = "SID_STUFE_" + (levelNum - 1) + "_hier";
+											var prevField = this.getView().byId(prevFieldId);
+											if (prevField) prevValue = prevField.getValue();
+										}
+										this.getView().byId(currenthier).setValue(prevValue + vValue);
 									}
-									this.getView().byId(currenthier).setValue(prevValue + vValue);
-								}
-									
-									
+
 									var nextId = "SID_STUFE_" + (this.lastLevelIndex);
 									var nextDesId = "SID_STUFE_" + (this.lastLevelIndex) + "_des";
 									if (this.getView().byId(nextId)) {
