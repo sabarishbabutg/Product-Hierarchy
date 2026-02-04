@@ -1678,6 +1678,21 @@ sap.ui.define([
 							// var level = "L" + level;
 							this._getNextLevelFields(vValue, level).then(function(levelStats) {
 								if (levelStats) {
+									// var nextHierId = "SID_STUFE_" + level + "_hier";
+									
+									// ---- Hierarchy build ----
+								if (this.getView().byId(this.selectedField + "_hier")) {
+									var levelNum = parseInt(level);
+									var prevValue = "";
+									if (levelNum > 1) {
+										var prevFieldId = "SID_STUFE_" + (levelNum - 1) + "_hier";
+										var prevField = this.getView().byId(prevFieldId);
+										if (prevField) prevValue = prevField.getValue();
+									}
+									this.getView().byId(currenthier).setValue(prevValue + vValue);
+								}
+									
+									
 									var nextId = "SID_STUFE_" + (this.lastLevelIndex);
 									var nextDesId = "SID_STUFE_" + (this.lastLevelIndex) + "_des";
 									if (this.getView().byId(nextId)) {
@@ -2003,20 +2018,20 @@ sap.ui.define([
 						var aResults = oData.NavPHItems.results[0];
 						var previousText = "";
 						for (var i = Number(level); i <= 7; i++) {
-							for (var j = Number(level); j >= 1; j--) {
-								var id = "SID_STUFE_" + j;
-								previousText += that.getView().byId(id).getValue();
-							}
+							// for (var j = Number(level); j <= i; j++) {
+							// 	var id = "SID_STUFE_" + j;
+							// 	previousText += that.getView().byId(id).getValue();
+							// }
 							var inputId = "SID_STUFE_" + i;
 							var descId = "SID_STUFE_" + i + "_des";
 							var heirId = "SID_STUFE_" + i + "_hier";
 							var level1 = "Level" + i; // property name in response
 							var description = "Vtext" + i;
 							if (aResults[level1]) {
-								previousText += aResults[level1];
+								// previousText += aResults[level1];
 								that.getView().byId(inputId).setValue(aResults[level1]);
 								that.getView().byId(inputId).setValueState("None");
-								that.getView().byId(heirId).setValue(previousText);
+								// that.getView().byId(heirId).setValue(previousText);
 								that.getView().byId(inputId).setEditable(true);
 								if (that.vDescEdit === "C") {
 									that.getView().byId(descId).setValue(aResults[description]);
