@@ -297,7 +297,7 @@ sap.ui.define([
 						that.vDescEdit = oData.Msgtype;
 						that.fnsetTrphState(oData);
 						var desc = oData.Description;
-						if(desc){
+						if (desc) {
 							that.getView().byId("ID_DES").setValue(desc);
 						}
 						var item = oData.NavPHItems.results[0];
@@ -493,7 +493,7 @@ sap.ui.define([
 								}
 							}
 						}
-						
+
 						//  Description
 						if (desc) {
 							var ovDesc = that.byId("ID_DES");
@@ -1429,6 +1429,7 @@ sap.ui.define([
 				}
 			});
 		},
+
 		_validationMG: function() {
 			var payload = {
 				AppId: "PM",
@@ -1480,7 +1481,9 @@ sap.ui.define([
 			var currectLvlCode;
 			var f4Data;
 			var result;
-			
+
+			oSrc._oldValue = vShort; //line added on 18-12-2025
+			oSrc.setValue(vValue.toUpperCase());
 
 			// var checkOldValue = this.byId(descId)._oldValue;
 			if (this.State === "I") { // initiator logive we donn't store the old value 
@@ -1488,12 +1491,17 @@ sap.ui.define([
 					currectLvlCode = this.getView().byId(shortId).getValue();
 					f4Data = this.f4Cache[lvl].rows;
 					result = f4Data.filter(function(item) {
-						return item.Value1 === currectLvlCode;
+						return item.Value1 === currectLvlCode || item.col1 === currectLvlCode;
 					});
 					if (result.length > 0) {
-						if (result[0].Value2 === vValue) {
-							this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", true);
-						} else {
+						var indChanged = false;
+						for (var i = 0; i < result.length; i++) {
+							if (result[0].Value2 === vValue.toUpperCase() || result[i].col2 === vValue.toUpperCase()) {
+								this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", true);
+								indChanged = true;
+							}
+						}
+						if (!indChanged) {
 							this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", "change");
 						}
 					}
@@ -1593,7 +1601,8 @@ sap.ui.define([
 					this._liveChangeTimer = setTimeout(function() {
 						this.fnLevelValidation().then(function(Status) {
 							if (Status) {
-
+								// oSrc._oldValue = vShort; //line added on 18-12-2025
+								// oSrc.setValue(vValue.toUpperCase());
 							}
 						}.bind(this));
 					}.bind(this), 300);
@@ -1602,13 +1611,12 @@ sap.ui.define([
 				oNextShort.setEditable(true);
 				oNextDesc.setEditable(true);
 			}
-			oSrc._oldValue = vShort; //line added on 18-12-2025
-			oSrc.setValue(vValue.toUpperCase()); 
+
 			clearTimeout(this._liveChangeTimer);
 			this._liveChangeTimer = setTimeout(function() {
 				this.fnLevelValidation().then(function(Status) {
 					if (Status) {
-						
+
 					}
 				}.bind(this));
 			}.bind(this), 300);
@@ -1667,6 +1675,7 @@ sap.ui.define([
 				}
 			}.bind(this));
 		},
+
 		fnLiveChange: function(oEvent) {
 			var oSrc = oEvent.getSource();
 			var sFieldId = oSrc.getId().split("--")[1];
@@ -2215,7 +2224,8 @@ sap.ui.define([
 							});
 							this.getView().setModel(oJsonModel, "JM_F4Model");
 							vTitle = sap.ui.getCore().byId(this.sitem + "_TXT").getText() + " (" + vLength + ")";
-							this.fnF4fragopen(oEvent, vTitle).open();
+							this.fnNewFragopen(oEvent, vTitle).open();
+							// this.fnNewFragopen(oEvent, vTitle).open();
 						} else {
 							vLength = oData.NavPHItems.results.length;
 							if (oFirst.MsgType === "I" || oFirst.MsgType === "E") {
@@ -2245,12 +2255,170 @@ sap.ui.define([
 							this.getView().setModel(oJsonModel, "JM_F4Model");
 							this.getView().getModel("JM_F4Model");
 							vTitle = this.getView().getModel("JM_F4Model").getData().labels.col1 + " (" + vLength + ")";
-							this.fnF4fragopen(oEvent, vTitle).open();
+							this.fnNewFragopen(oEvent, vTitle).open();
+
 						}
 					}
 				}.bind(this),
 				error: function(oResponse) {}
 			});
+		},
+
+		fnNewFragopen: function(oEvent, vTitle) {
+			if (!this.f4HelpFrag) {
+				this.f4HelpFrag = sap.ui.xmlfragment(this.getView().getId(), "PRDH.fragment.LevelHelp", this);
+				this.getView().addDependent(this.f4HelpFrag);
+			}
+			var oModel = this.getView().getModel("JM_F4Model");
+			if (!oModel) {
+				return;
+			}
+
+			var oTable = this.byId("id_F4Table");
+			var oLabels = oModel.getProperty("/labels");
+
+			oTable.removeAllColumns();
+
+			Object.keys(oLabels).forEach(function(sColKey) {
+				var sHeaderText = oLabels[sColKey];
+
+				// create column only if label has value
+				if (sHeaderText && sHeaderText.trim() !== "") {
+					oTable.addColumn(new sap.ui.table.Column({
+						label: new sap.m.Label({
+							text: "{JM_F4Model>/labels/" + sColKey + "}"
+						}),
+						template: new sap.m.Label({
+							text: "{JM_F4Model>" + sColKey + "}"
+						}).addStyleClass("sapUiTinyMarginBegin cl_table_label"),
+						sortProperty: sColKey,
+						filterProperty: sColKey
+					}));
+				}
+			});
+			// this.fnDynamicColunmBind();
+
+			this.fnDynmaicLevelDetails(); // added by Jones on 12.12.2025
+			this.f4HelpFrag.setTitle(vTitle);
+
+			return this.f4HelpFrag;
+		},
+
+		fnrowSelected: function(oEvent) {
+
+			// var oItem = oEvent.getSource();
+			var index = oEvent.getParameter("rowIndex");
+			var oContext = oEvent.getSource().getContextByIndex(index).getObject();
+
+			var level = this.selectedField.split("_")[2];
+			var hboxId = "SID_STUFE_" + level + "_IND";
+			var btnId = "SID_STUFE_" + level + "_BTN";
+			var descId = "SID_STUFE_" + level + "_des";
+
+			var item = oContext.col1;
+			var item1 = oContext.col2;
+			var item2 = oContext.col3;
+			var oShort = this.getView().byId(this.selectedField);
+			var oDesc = this.getView().byId(this.selectedField + "_des");
+			// ---- Setting Level ---------------------- //
+			if (this.selectedField === "SID_STUFE") {
+				this.byId("SID_STUFE_lev").setValue(item2);
+				this.updateIndicator(
+					"SID_STUFE_IND", // HBox
+					"SID_STUFE_BTN", // Button
+					"SID_STUFE_des",
+					true
+				);
+				// ---- Correctly apply selection ----
+				oShort.setValue(item);
+				oShort.setValueState("None");
+
+				oDesc.setValue(item1);
+				oDesc.setValueState("None");
+				this.fnAfterCloseFragment();
+				return;
+			} else if (this.selectedField === "SID_MAGRV") {
+				// ---- Correctly apply selection ----
+				oShort.setValue(item);
+				oShort.setValueState("None");
+
+				oDesc.setValue(item1);
+				oDesc.setValueState("None");
+				this.updateIndicator("SID_MAGRV_IND", "SID_MAGRV_BTN", "SID_MAGRV_des", true);
+				this.fnAfterCloseFragment();
+				return;
+			} else if (this.selectedField === "ID_PH_MATKL") {
+				// ---- Correctly apply selection ----
+				oShort.setValue(item);
+				oShort.setValueState("None");
+
+				oDesc.setValue(item1);
+				oDesc.setValueState("None");
+				this.updateIndicator("ID_PH_MATKL_IND", "ID_PH_MATKL_BTN", "ID_PH_MATKL_des", true);
+				this.fnAfterCloseFragment();
+				return;
+			} else {
+
+				//Update oldValue so liveChange works properly ----
+				oShort._oldValue = item;
+				oShort._oldValueStored = true;
+
+				oDesc._oldValue = item1;
+				oDesc._oldValueStored = true;
+
+				// ---- Correctly apply selection ----
+				oShort.setValue(item);
+				oShort.setValueState("None");
+				// added by sabarish 24-12-2025
+				if (item1 === "") {
+					this.updateIndicator(hboxId, btnId, descId, "new");
+				} else {
+					this.updateIndicator(hboxId, btnId, descId, true);
+				}
+
+				oDesc.setValue(item1);
+				oDesc.setValueState("None");
+				this.fnAfterCloseFragment();
+				this.fnLevelValidation().then(function(Status) {
+					if (Status) {
+						this._getNextLevelFields(item, level).then(function(levelStats) {
+							if (levelStats) {
+								// ---- Hierarchy build ----
+								if (this.getView().byId(this.selectedField + "_hier")) {
+									var levelNum = parseInt(level);
+									var prevValue = "";
+									if (levelNum > 1) {
+										var prevFieldId = "SID_STUFE_" + (levelNum - 1) + "_hier";
+										var prevField = this.getView().byId(prevFieldId);
+										if (prevField) prevValue = prevField.getValue();
+									}
+									this.getView().byId(this.selectedField + "_hier").setValue(prevValue + item);
+								}
+								// var level = "L" + level;
+								this._getNextLevelFields(item, level).then(function(levelStats1) {
+									if (levelStats1) {
+										var nextId = "SID_STUFE_" + (this.lastLevelIndex);
+										var nextDesId = "SID_STUFE_" + (this.lastLevelIndex) + "_des";
+										if (this.getView().byId(nextId)) {
+											this.getView().byId(nextId).setEditable(true);
+											if (this.vDescEdit === "C") {
+												this.getView().byId(nextDesId).setEditable(true);
+											} else {
+												this.getView().byId(nextDesId).setEditable(false);
+											}
+										}
+
+									}
+								}.bind(this));
+
+								// this.fnupdateNextLevel();
+							}
+						}.bind(this));
+					}
+				}.bind(this));
+			}
+
+			this.fnAfterCloseFragment();
 		},
 
 		fnSamplepress: function(oEvent, olivechange, skipAutoFill) {
@@ -2406,10 +2574,15 @@ sap.ui.define([
 						that.getView().setModel(oJsonModel, "JM_F4Model");
 						that.getView().getModel("JM_F4Model");
 						vTitle = that.getView().getModel("JM_F4Model").getData().labels.col1 + " (" + vLength + ")";
-						that.fnF4fragopen(oEvent, vTitle).open();
+
+						if (that.selectedField === "SID_MAGRV" || that.selectedField === "ID_PH_MATKL") {
+							that.fnF4fragopen(oEvent, vTitle).open();
+						} else {
+							that.fnNewFragopen(oEvent, vTitle).open();
+						}
 
 						// var fieldname = this.levelValue;
-						var scrollVbox = that.f4HelpFrag.getContent()[2];
+						// var scrollVbox = that.f4HelpFrag.getContent()[2];
 						// remove all scroll classes at once
 						var aClasses = [
 							"cl_f4tableScroll",
@@ -2422,12 +2595,23 @@ sap.ui.define([
 						];
 						var levelNumber = Number(fieldname);
 						if (levelNumber > 1) {
-							aClasses.forEach(function(sClass) {
-								scrollVbox.removeStyleClass(sClass);
-							});
+							// aClasses.forEach(function(sClass) {
+							// 	scrollVbox.removeStyleClass(sClass);
+							// });
 
 							if (fieldname >= "2" && fieldname <= "7") {
-								scrollVbox.addStyleClass("cl_f4tableScrollL" + fieldname);
+								// scrollVbox.addStyleClass("cl_f4tableScrollL" + fieldname);
+								if (fieldname === "3") {
+									that.getView().byId("id_F4Table").setVisibleRowCount(12);
+								} else if (fieldname === "4") {
+									that.getView().byId("id_F4Table").setVisibleRowCount(11);
+								} else if (fieldname === "5") {
+									that.getView().byId("id_F4Table").setVisibleRowCount(10);
+								} else if (fieldname === "6") {
+									that.getView().byId("id_F4Table").setVisibleRowCount(9);
+								} else if (fieldname === "7") {
+									that.getView().byId("id_F4Table").setVisibleRowCount(8);
+								}
 							}
 						}
 					} else {
@@ -2446,10 +2630,36 @@ sap.ui.define([
 
 		fnF4fragopen: function(oEvent, vTitle) {
 			if (!this.f4HelpFrag) {
-				this.f4HelpFrag = sap.ui.xmlfragment(this.getView().getId(), "PRDH.fragment.LevelHelp", this);
+				this.f4HelpFrag = sap.ui.xmlfragment(this.getView().getId(), "PRDH.fragment.F4Help", this);
 				this.getView().addDependent(this.f4HelpFrag);
 			}
-			this.fnDynmaicLevelDetails(); // added by Jones on 12.12.2025
+			var oModel = this.getView().getModel("JM_F4Model");
+			if (!oModel) {
+				return;
+			}
+
+			var oTable = this.byId("id_F4Table");
+			var oLabels = oModel.getProperty("/labels");
+
+			oTable.removeAllColumns();
+
+			Object.keys(oLabels).forEach(function(sColKey) {
+				var sHeaderText = oLabels[sColKey];
+
+				// create column only if label has value
+				if (sHeaderText && sHeaderText.trim() !== "") {
+					oTable.addColumn(new sap.ui.table.Column({
+						label: new sap.m.Label({
+							text: "{JM_F4Model>/labels/" + sColKey + "}"
+						}),
+						template: new sap.m.Label({
+							text: "{JM_F4Model>" + sColKey + "}"
+						}).addStyleClass("sapUiTinyMarginBegin cl_table_label"),
+						sortProperty: sColKey,
+						filterProperty: sColKey
+					}));
+				}
+			});
 			this.f4HelpFrag.setTitle(vTitle);
 
 			return this.f4HelpFrag;
@@ -2628,15 +2838,21 @@ sap.ui.define([
 		fnValueSearch: function(oEvent) {
 			var oInput = oEvent.getSource();
 			var sValue = oInput.getValue();
-			oInput.setValue(sValue.toUpperCase()); // optional: keep uppercase
-			// Get Table and binding
-			var oTable = this.byId("idMaterialTable");
-			var oBinding = oTable.getBinding("items");
-			if (!oBinding) return;
+
+			oInput.setValue(sValue.toUpperCase()); // optional
+
+			var oTable = this.byId("id_F4Table");
+			var oBinding = oTable.getBinding("rows");
+			if (!oBinding) {
+				return;
+			}
+
 			var aFilters = [];
+
 			if (sValue) {
 				if (this.selectedField === "SID_STUFE") {
 					var op = !isNaN(sValue) ? sap.ui.model.FilterOperator.EQ : sap.ui.model.FilterOperator.Contains;
+
 					aFilters.push(new sap.ui.model.Filter({
 						filters: [
 							new sap.ui.model.Filter("col1", op, sValue),
@@ -2646,7 +2862,6 @@ sap.ui.define([
 						and: false
 					}));
 				} else {
-					// Filter all columns with Contains
 					aFilters.push(new sap.ui.model.Filter({
 						filters: [
 							new sap.ui.model.Filter("col1", sap.ui.model.FilterOperator.Contains, sValue),
@@ -2658,7 +2873,8 @@ sap.ui.define([
 					}));
 				}
 			}
-			oBinding.filter(aFilters, "Application");
+
+			oBinding.filter(aFilters, sap.ui.model.FilterType.Application);
 		},
 
 		// *-------------------------------------------------------------------------------------
@@ -4955,15 +5171,14 @@ sap.ui.define([
 			}.bind(this));
 
 		},
-		
-		fnNewDescription:function(oEvent){
+
+		fnNewDescription: function(oEvent) {
 			var oSrc = oEvent.getSource();
 			var value = oSrc.getValue();
 			this.getView().byId("ID_DES_CNT").setValue(value.length);
 			oSrc.setValue(value.toUpperCase());
 		},
-		
-		
+
 		// *-------------------------------------------------------------------------------------
 		//		Function for to resize the responsive 
 		// *-------------------------------------------------------------------------------------

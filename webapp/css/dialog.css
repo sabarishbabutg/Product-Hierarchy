@@ -618,3 +618,121 @@ Success Fragment
     content: '';
     border: none !important;
 }
+
+
+
+/* ===========================
+   Common Table and Table Input Styles
+   =========================== */
+.cl_opr_Tbl_f4dialog .sapUiTableCnt {
+    background-color: #ffffff !important;
+    /*border-radius: 8px !important;*/
+    border:none !important;
+    border-bottom:1px solid #A7A5A5;
+    border-top:1px solid #A7A5A5 !important;
+    /*border: 1px solid #A7A5A5;*/
+}
+.cl_opr_Tbl_f4dialog .sapUiTableCCnt {
+    border-bottom: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableVSb {
+    border-bottom: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowHdr {
+    background-color: #ffffff;
+    border-right: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableTr>td {
+    border-right: none !important;
+}
+.cl_opr_Tbl_f4dialog.sapUiTableVScr .sapUiTableCtrlScr {
+    border-right: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowHdr::before {
+    border-radius: 50% !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableCol {
+    border-right: none !important;
+    background-color: #E4FBFF !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableSelectAllCheckBox::after,
+.cl_opr_Tbl_f4dialog.sapUiTableRowSelectionCell::after {
+    border-radius: 2px !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableCell.sapUiTableHeaderCell {
+    background-color: #E4FBFF !important;
+    border-bottom: none;
+    border-right: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableCell {
+    position: none !important;
+    border-right: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableColHdrCnt {
+    bborder-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableCell:focus::before {
+    outline: none !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowSelectionHeaderCell:not(.sapUiTableSelAll) .sapUiTableSelectAllCheckBox::after,
+.cl_opr_Tbl_f4dialog.sapUiTableSelModeMultiToggle .sapUiTableRowSel .sapUiTableRowSelectionCell::after {
+    background-color: white !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowSelectionHeaderCell:not(.sapUiTableSelAll) .sapUiTableSelectAllCheckBox::after,
+.cl_opr_Tbl_f4dialog.sapUiTableSelModeMultiToggle .sapUiTableRowSel .sapUiTableRowSelectionCell::after {
+    border: none !important;
+    color: #fff !important;
+    background-color: #0382A5 !important;
+    width: 15px !important;
+    border-radius: 4px !important;
+    height: 15px !important;
+    font-size: 11px !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowSel {
+    background-image: linear-gradient(to right, #56bdcd 0px, #ebfcff 0px) !important;
+    border-left: none !important; 
+}
+.cl_opr_Tbl_f4dialog .sapUiTableContentRow.sapUiTableRowSel {
+    background-color: #E9EFF0 !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowSel>.sapUiTableCell {
+    border-bottom: .0625rem solid #e5e5e5 !important;
+    border-bottom-width: 0.0625rem !important;
+    border-bottom-style: solid;
+    border-bottom-color: #e5e5e5 !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableRowSelectionCell {
+    border-right: none;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableSelectAllCheckBox::after,
+.cl_opr_Tbl_f4dialog.sapUiTableRowSelectionCell::after {
+    content: '';
+    border: .0625rem solid #B6B5B5 !important;
+    background-color: #fff !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableSelectAllCheckBox::after,
+.cl_opr_Tbl_f4dialog .sapUiTableRowSelectionCell::after {
+    height: 15px !important;
+    width: 15px !important;
+    border-radius: 3px !important;
+    border: solid 0.0625rem #B6B5B5 !important;
+    background-color: #ffffff !important;
+}
+.cl_opr_Tbl_f4dialog .sapUiTableDataCell>.sapUiTableCellInner {
+    padding: 0px !important;
+}
+.cl_opr_Tbl_f4dialog .sapMInputBaseInner {
+    color: #000000;
+    border: 1px solid #bfbfbf00;
+    border-radius: 0;
+    margin: 0;
+    font-size: 12px;
+    padding: 0px 0.5rem !important;
+    font-family: "Segoe UI";
+}
+.cl_opr_Tbl_f4dialog.sapUiTableSelModeMultiToggle .sapUiTableRowSel .sapUiTableRowSelectionCell::after {
+    top: 1px !Important;
+}

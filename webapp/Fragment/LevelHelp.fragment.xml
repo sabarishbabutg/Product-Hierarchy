@@ -1,10 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:uitable="sap.ui.table">
-	<Dialog title="F4Dialog" class="cl_f4Help sapUiSizeCompact" verticalScrolling="false" afterClose="fnAfterCloseFragment">
+	<Dialog title="F4Dialog" class="cl_f4Help sapUiSizeCompact" contentWidth="500px" verticalScrolling="false" afterClose="fnAfterCloseFragment">
 		<VBox class="sapUiSmallMarginEnd cl_f4searchbox" width="80%" height="3rem">
 			<SearchField liveChange="fnValueSearch" width="100%" placeholder="Search Here" search="fnValueSearch" class="cl_f4searchfield"/>
 		</VBox>
-		<!--<VBox id="id_DynamicLevelDetail" class="cl_borderbtm cl_toplevel">-->
-		<!--</VBox>-->
 		<VBox visible="{= ${JM_LevelDetailsRow>/rows}.length > 0 }">
 			<Table items="{JM_LevelDetailsRow>/rows}" mode="None" inset="false" fixedLayout="false" width="100%" class="cl_Levelf4table">
 				<columns>
@@ -14,9 +12,6 @@
 					<Column visible="{= !!${JM_F4Model>/labels/col2} }">
 						<Text text="Description"/>
 					</Column>
-					<!--<Column visible="{= !!${JM_F4Model>/labels/col3} }">-->
-					<!--	<Text text="Code"/>-->
-					<!--</Column>-->
 					<Column>
 						<Text text="Code"/>
 					</Column>
@@ -32,35 +27,8 @@
 				</items>
 			</Table>
 		</VBox>
-		<VBox id = "id_f4vbox"  class="cl_f4tableScroll">
-			<Table id="idMaterialTable" items="{JM_F4Model>/rows}" mode="None" inset="false" fixedLayout="false" width="100%"
-				class="sapUiResponsiveMargin cl_f4table">
-				<columns>
-					<Column visible="{= !!${JM_F4Model>/labels/col1} }">
-						<Text text="{JM_F4Model>/labels/col1}"/>
-					</Column>
-					<Column visible="{= !!${JM_F4Model>/labels/col2} }">
-						<Text text="{JM_F4Model>/labels/col2}"/>
-					</Column>
-					<Column visible="{= !!${JM_F4Model>/labels/col3} }">
-						<Text text="{JM_F4Model>/labels/col3}"/>
-					</Column>
-					<Column visible="{= !!${JM_F4Model>/labels/col4} }">
-						<Text text="{JM_F4Model>/labels/col4}"/>
-					</Column>
-				</columns>
-				<items>
-					<ColumnListItem type="Active" press="fnF4Itempress">
-						<cells>
-							<Text text="{JM_F4Model>col1}" visible="{= !!${JM_F4Model>col1} }"/>
-							<Text text="{JM_F4Model>col2}" visible="{= !!${JM_F4Model>col2} }"/>
-							<Text text="{JM_F4Model>col3}" visible="{= !!${JM_F4Model>col3} }"/>
-							<Text text="{JM_F4Model>col4}" visible="{= !!${JM_F4Model>col4} }"/>
-						</cells>
-					</ColumnListItem>
-				</items>
-			</Table>
-		</VBox>
+		<uitable:Table id="id_F4Table" selectionBehavior="Row" rowSelectionChange="fnrowSelected" rows="{JM_F4Model>/rows}" selectionMode="Single"
+			class="sapUiSmallMarginBottom cl_opr_Tbl_f4dialog" visibleRowCount="13"></uitable:Table>
 		<endButton>
 			<Button text="{i18n>cancel}" class="sapUiSizeCompact cl_f4table_change cl_secondaryButton sapUiSmallMarginEnd"
 				icon="{= ${JM_ImageModel>/path} + 'Cancel.svg'}" press="fnf4HelpCancel"/>

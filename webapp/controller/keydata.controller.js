@@ -317,15 +317,22 @@ sap.ui.define([
 		},
 
 		// data press from F4 dialog
-		fnF4Itempress: function(oEvent) {
-			var oItem = oEvent.getSource();
-			var oContext = oItem.getBindingContext("JM_F4Model");
-			if (!oContext) {
-				return;
-			}
-			var item = oContext.getProperty("col1");
-			var item1 = oContext.getProperty("col2");
-			var item2 = oContext.getProperty("col3");
+		fnrowSelected: function(oEvent) {
+			// var oItem = oEvent.getSource();
+			// var oContext = oItem.getBindingContext("JM_F4Model");
+			// if (!oContext) {
+			// 	return;
+			// }
+			// var item = oContext.getProperty("col1");
+			// var item1 = oContext.getProperty("col2");
+			// var item2 = oContext.getProperty("col3");
+			// }
+			var index= oEvent.getParameter("rowIndex");
+			var oContext = oEvent.getSource().getContextByIndex(index).getObject();
+
+			var item = oContext.col1;
+			var item1 = oContext.col2;
+			var item2 = oContext.col3;
 
 			this.getView().byId(this.selectedField).setValue(item);
 			this.getView().byId(this.selectedField).setValueState("None");
@@ -347,6 +354,65 @@ sap.ui.define([
 				this.f4HelpFrag = sap.ui.xmlfragment(this.getView().getId(), "PRDH.fragment.F4Help", this);
 				this.getView().addDependent(this.f4HelpFrag);
 			}
+			
+				var oModel = this.getView().getModel("JM_F4Model");
+if (!oModel) {
+    return;
+}
+
+var oTable  = this.byId("id_F4Table");
+var oLabels = oModel.getProperty("/labels");
+
+oTable.removeAllColumns();
+
+
+/* -------------------------------------------------- */
+/* Get only visible columns first                     */
+/* -------------------------------------------------- */
+var aValidCols = Object.keys(oLabels).filter(function (sKey) {
+    return oLabels[sKey] && oLabels[sKey].trim() !== "";
+});
+
+var iColCount = aValidCols.length;
+
+
+/* -------------------------------------------- */
+/* Dialog width handling                        */
+/* -------------------------------------------- */
+var oDialog = this.getView().byId("id_f4Dialog");
+if (oDialog) {
+    if (aValidCols.length === 1) {
+        oDialog.setContentWidth("200px");   
+    } 
+}
+
+
+/* -------------------------------------------------- */
+/* Create columns with dynamic width logic             */
+/* -------------------------------------------------- */
+aValidCols.forEach(function (sColKey, iIndex) {
+
+    var oColumnProps = {
+        label: new sap.m.Label({
+            text: "{JM_F4Model>/labels/" + sColKey + "}"
+        }),
+        template: new sap.m.Label({
+            text: "{JM_F4Model>" + sColKey + "}",
+            tooltip : "{JM_F4Model>" + sColKey + "}"
+        }).addStyleClass("sapUiTinyMarginBegin cl_table_label"),
+        sortProperty: sColKey,
+        filterProperty: sColKey
+    };
+    if (
+        (iColCount === 3 && iIndex < 2) ||
+        (iColCount === 2 && iIndex === 0)
+    ) {
+        oColumnProps.width = "10rem";
+    }
+    // else → no width set
+
+    oTable.addColumn(new sap.ui.table.Column(oColumnProps));
+});
 			this.f4HelpFrag.setTitle(vTitle);
 			return this.f4HelpFrag;
 		},
@@ -360,27 +426,32 @@ sap.ui.define([
 
 		// Value hel in the f4 dialog
 		fnValueSearch: function(oEvent) {
-			var oInput = oEvent.getSource();
-			var sValue = oInput.getValue();
-			oInput.setValue(sValue.toUpperCase());
-			var sQuery = oEvent.getSource().getValue().toLowerCase();
-			// Get table and binding
-			var oTable = this.byId("idMaterialTable");
-			var oBinding = oTable.getBinding("items");
-			if (!oBinding) return;
-			var aFilters = [];
-			// Filter on all possible columns
-			if (sQuery) {
-				aFilters.push(new sap.ui.model.Filter({
-					filters: [
-						new sap.ui.model.Filter("col1", sap.ui.model.FilterOperator.Contains, sQuery),
-						new sap.ui.model.Filter("col2", sap.ui.model.FilterOperator.Contains, sQuery),
-						new sap.ui.model.Filter("col3", sap.ui.model.FilterOperator.Contains, sQuery),
-						new sap.ui.model.Filter("col4", sap.ui.model.FilterOperator.Contains, sQuery)
-					],
-					and: false
-				}));
-			}
+		var oInput = oEvent.getSource();
+var sValue = oInput.getValue();
+
+oInput.setValue(sValue.toUpperCase()); // optional
+
+var oTable = this.byId("id_F4Table");
+var oBinding = oTable.getBinding("rows");
+if (!oBinding) {
+    return;
+}
+
+var aFilters = [];
+
+if (sValue) {
+        aFilters.push(new sap.ui.model.Filter({
+            filters: [
+                new sap.ui.model.Filter("col1", sap.ui.model.FilterOperator.Contains, sValue),
+                new sap.ui.model.Filter("col2", sap.ui.model.FilterOperator.Contains, sValue),
+                new sap.ui.model.Filter("col3", sap.ui.model.FilterOperator.Contains, sValue),
+                new sap.ui.model.Filter("col4", sap.ui.model.FilterOperator.Contains, sValue)
+            ],
+            and: false
+        }));
+    
+}
+
 			oBinding.filter(aFilters, "Application");
 		},
 
