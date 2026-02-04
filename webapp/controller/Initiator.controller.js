@@ -1349,7 +1349,7 @@ sap.ui.define([
 					var matched = false;
 					for (var i = 0; i < rows.length; i++) {
 						if (rows[i].Value1 === vShort || rows[i].col1 === vShort) {
-							if (rows[i].Value2 === vDesc || rows[i].col2 === vDesc) {
+							if (rows[i].Value2.toUpperCase() === vDesc.toUpperCase() || rows[i].col2.toUpperCase() === vDesc.toUpperCase()) {
 								this.updateIndicator("ID_PH_MATKL_IND", "ID_PH_MATKL_BTN", "ID_PH_MATKL_des", true);
 							} else {
 								this.updateIndicator("ID_PH_MATKL_IND", "ID_PH_MATKL_BTN", "ID_PH_MATKL_des", "change");
@@ -1485,6 +1485,10 @@ sap.ui.define([
 			oSrc._oldValue = vShort; //line added on 18-12-2025
 			oSrc.setValue(vValue.toUpperCase());
 
+			function safeUpper(val) {
+				return (val || "").toString().toUpperCase();
+			}
+
 			// var checkOldValue = this.byId(descId)._oldValue;
 			if (this.State === "I") { // initiator logive we donn't store the old value 
 				if (this.f4Cache[lvl]) {
@@ -1496,12 +1500,14 @@ sap.ui.define([
 					if (result.length > 0) {
 						var indChanged = false;
 						for (var i = 0; i < result.length; i++) {
-							if (result[0].Value2 === vValue.toUpperCase() || result[i].col2 === vValue.toUpperCase()) {
+							if (safeUpper(result[i].Value2) === safeUpper(vValue) ||
+								safeUpper(result[i].col2) === safeUpper(vValue)) {
 								this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", true);
 								indChanged = true;
 							}
 						}
 						if (!indChanged) {
+							this._changeAndNewCheck(lvl, vValue, oSrc);
 							this.updateIndicator("SID_STUFE_" + lvl + "_IND", "SID_STUFE_" + lvl + "_BTN", "SID_STUFE_" + lvl + "_des", "change");
 						}
 					}
@@ -1596,31 +1602,63 @@ sap.ui.define([
 				var nextLvl = lvl + 1;
 				var oNextShort = this.byId("SID_STUFE_" + nextLvl);
 				var oNextDesc = this.byId("SID_STUFE_" + nextLvl + "_des");
-				if (nextLvl > 7) {
-					clearTimeout(this._liveChangeTimer);
-					this._liveChangeTimer = setTimeout(function() {
-						this.fnLevelValidation().then(function(Status) {
-							if (Status) {
-								// oSrc._oldValue = vShort; //line added on 18-12-2025
-								// oSrc.setValue(vValue.toUpperCase());
-							}
-						}.bind(this));
-					}.bind(this), 300);
-					return;
-				}
+				// if (nextLvl > 7) {
+				// 	clearTimeout(this._liveChangeTimer);
+				// 	this._liveChangeTimer = setTimeout(function() {
+				// 		this.fnLevelValidation().then(function(Status) {
+				// 			if (Status) {
+				// 				// oSrc._oldValue = vShort; //line added on 18-12-2025
+				// 				// oSrc.setValue(vValue.toUpperCase());
+				// 			}
+				// 		}.bind(this));
+				// 	}.bind(this), 300);
+				// 	return;
+				// }
 				oNextShort.setEditable(true);
-				oNextDesc.setEditable(true);
+				if (this.vDescEdit === "C") {
+					oNextDesc.setEditable(true);
+				} else {
+					oNextDesc.setEditable(false);
+				}
 			}
 
 			clearTimeout(this._liveChangeTimer);
 			this._liveChangeTimer = setTimeout(function() {
 				this.fnLevelValidation().then(function(Status) {
 					if (Status) {
-
+						var text = this.getView().byId(btnId).getText();
+						if (text === "new") {
+							this._changeAndNewCheck(lvl, vValue, oSrc);
+						}
 					}
 				}.bind(this));
 			}.bind(this), 300);
+		},
 
+		_changeAndNewCheck: function(lvl, vValue, oSrc) {
+			var aData = this.f4Cache[lvl].rows || [];
+			var bDuplicateFound = false;
+			var oMatchedItem = null;
+
+			var sInputValue = (vValue || "").replace(/\s+/g, "").toUpperCase();
+
+			for (var i = 0; i < aData.length; i++) {
+				var oItem = aData[i];
+				var sText = oItem.col2 || oItem.Value2 || "";
+				var sF4Value = sText.replace(/\s+/g, "").toUpperCase();
+
+				if (sF4Value === sInputValue) {
+					oMatchedItem = oItem;
+					bDuplicateFound = true;
+					break;
+				}
+			}
+			if (bDuplicateFound) {
+				oSrc.setValueState(sap.ui.core.ValueState.Error);
+				oSrc.setValueStateText("This value already exists for code " + (oMatchedItem.col1 || oMatchedItem.Value1 || ""));
+				ErrorHandler.showCustomSnackbar("This value already exists for code " + (oMatchedItem.col1 || oMatchedItem.Value1 || ""), "Error",
+					this);
+			}
 		},
 
 		_levelliveChange: function(lvl, vValue) {
@@ -1644,10 +1682,13 @@ sap.ui.define([
 									var nextDesId = "SID_STUFE_" + (this.lastLevelIndex) + "_des";
 									if (this.getView().byId(nextId)) {
 										this.getView().byId(nextId).setEditable(true);
+										this.getView().byId(nextId).setValueState("None");
 										if (this.vDescEdit === "C") {
 											this.getView().byId(nextDesId).setEditable(true);
+											this.getView().byId(nextDesId).setValueState("None");
 										} else {
 											this.getView().byId(nextDesId).setEditable(false);
+											this.getView().byId(nextDesId).setValueState("None");
 										}
 									}
 								}
@@ -1960,9 +2001,9 @@ sap.ui.define([
 				oModel.create("/Product_KeyDataSet", vPayload, {
 					success: function(oData) {
 						var aResults = oData.NavPHItems.results[0];
+						var previousText = "";
 						for (var i = Number(level); i <= 7; i++) {
-							var previousText = "";
-							for (var j = 1; j < i; j++) {
+							for (var j = Number(level); j >= 1; j--) {
 								var id = "SID_STUFE_" + j;
 								previousText += that.getView().byId(id).getValue();
 							}
@@ -2898,7 +2939,7 @@ sap.ui.define([
 
 			var aProdHierCodes = [
 				"SID_STUFE_1", "SID_STUFE_2", "SID_STUFE_3",
-				"SID_STUFE_4", "SID_STUFE_5", "SID_STUFE_6", "SID_STUFE_7"
+				"SID_STUFE_4", "SID_STUFE_5", "SID_STUFE_6", "SID_STUFE_7", "ID_DES"
 			];
 
 			var aProdHierDescs = [
@@ -5176,6 +5217,7 @@ sap.ui.define([
 			var oSrc = oEvent.getSource();
 			var value = oSrc.getValue();
 			this.getView().byId("ID_DES_CNT").setValue(value.length);
+			this.getView().byId("ID_DES").setValueState("None");
 			oSrc.setValue(value.toUpperCase());
 		},
 

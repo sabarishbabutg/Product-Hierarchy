@@ -116,7 +116,7 @@
 										</layoutData>
 									</VBox>
 									<VBox>
-										<Label text="Description" class="cl_init_inputLabel"></Label>
+										<Label text="Description" required = "true" class="cl_init_inputLabel"></Label>
 										<HBox>
 											<VBox width="90%" class="sapUiTinyMarginEnd">
 												<Input id="ID_DES" class="cl_s_inputField" maxLength="40" liveChange="fnNewDescription"></Input>
